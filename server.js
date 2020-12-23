@@ -34,7 +34,7 @@ const server = functions.https.onRequest(async (request, response) => {
 });
 
 if (dev) {
-	init();
+	init(null, null, dev);
 }
 
 exports.handler = { server };
