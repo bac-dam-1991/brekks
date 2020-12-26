@@ -17,6 +17,10 @@
 	"author": "Bac Trach Dam",
 	"license": "ISC",
 	"dependencies": {
+		"@material-ui/core": "^4.11.2",
+		"@material-ui/icons": "^4.11.2",
+		"@material-ui/lab": "^4.0.0-alpha.57",
+		"clsx": "^1.1.1",
 		"express": "^4.17.1",
 		"firebase": "^8.2.1",
 		"firebase-admin": "^9.4.2",

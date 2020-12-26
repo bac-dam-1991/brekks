@@ -15,6 +15,9 @@ const expressServer = express();
 async function init(request, response, dev) {
 	await app.prepare();
 	expressServer.get("/", (req, res) => app.render(req, res, "/"));
+	expressServer.get("/express", (req, res) =>
+		res.send(`Time stamp ${Date.now()}`)
+	);
 	expressServer.get("*", (req, res) => requestHandler(req, res));
 
 	if (dev) {
