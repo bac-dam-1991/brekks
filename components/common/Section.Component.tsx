@@ -15,7 +15,10 @@ import clsx from "clsx";
 
 export const styles = (theme: Theme) =>
 	createStyles({
-		root: {},
+		root: {
+			margin: theme.spacing(10, 0),
+		},
+		container: {},
 	});
 
 export interface SectionProps extends ContainerProps {}
@@ -27,12 +30,14 @@ const Section: React.FC<SectionProps & WithStyles<typeof styles>> = ({
 	maxWidth = "lg",
 }) => {
 	return (
-		<Container
-			maxWidth={maxWidth}
-			className={clsx(classes.root, className)}
-		>
-			{children}
-		</Container>
+		<div className={classes.root}>
+			<Container
+				maxWidth={maxWidth}
+				className={clsx(classes.container, className)}
+			>
+				{children}
+			</Container>
+		</div>
 	);
 };
 
