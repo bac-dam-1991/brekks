@@ -23,13 +23,27 @@ import AddAlarmRoundedIcon from "@material-ui/icons/AddAlarmRounded";
 import PromptedButton from "../common/PromptedButton.Component";
 import UnfoldLessRoundedIcon from "@material-ui/icons/UnfoldLessRounded";
 import UnfoldMoreRoundedIcon from "@material-ui/icons/UnfoldMoreRounded";
+import ArrowForwardIosRoundedIcon from "@material-ui/icons/ArrowForwardIosRounded";
+import ArrowBackIosRoundedIcon from "@material-ui/icons/ArrowBackIosRounded";
+
 import { FirstDayOfWeekType } from "../../domain/common/types/FirstDayOfWeekType";
 
 export const styles = (theme: Theme) =>
 	createStyles({
-		root: {},
-		paper: { padding: theme.spacing(0.5) },
+		root: { display: "flex", flexDirection: "row" },
+		paper: {
+			padding: theme.spacing(0.5),
+			width: "auto",
+			boxShadow: "none",
+			"&:hover": {
+				boxShadow: theme.shadows[4],
+			},
+		},
+		navigation: {
+			marginRight: theme.spacing(1),
+		},
 		paperRoot: { borderRadius: 26 },
+		toolbar: {},
 	});
 
 export interface CalendarToolbarProps
@@ -59,7 +73,19 @@ const CalendarToolbar: React.FC<
 	return (
 		<div className={clsx(classes.root, className)}>
 			<Paper
-				className={classes.paper}
+				className={clsx(classes.paper, classes.navigation)}
+				classes={{ root: classes.paperRoot }}
+			>
+				<PromptedIconButton title="Previous month">
+					<ArrowBackIosRoundedIcon />
+				</PromptedIconButton>
+				<PromptedIconButton title="Next month">
+					<ArrowForwardIosRoundedIcon />
+				</PromptedIconButton>
+			</Paper>
+
+			<Paper
+				className={clsx(classes.paper, classes.toolbar)}
 				classes={{ root: classes.paperRoot }}
 			>
 				<PromptedIconButton title="Add staff">
