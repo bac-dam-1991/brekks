@@ -16,6 +16,7 @@ import { generateClassName } from "../../domain/utility/utility";
 
 // Components
 import CalendarHeading from "./CalendarHeading.Component";
+import CalendarToolbar from "./CalendarToolbar.Component";
 
 export const styles = (theme: Theme) =>
 	createStyles({
@@ -31,6 +32,7 @@ const CalendarContainer: React.FC<
 	return (
 		<div className={clsx(className, classes.root)} {...divProps}>
 			<CalendarHeading color="primary" />
+			<CalendarToolbar />
 		</div>
 	);
 };
