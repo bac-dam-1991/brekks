@@ -6,7 +6,7 @@ const theme = createMuiTheme({
 			main: "#DB6C79",
 		},
 		secondary: {
-			main: "#DB6C79",
+			main: "#335C81",
 		},
 	},
 });

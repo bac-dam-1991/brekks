@@ -16,6 +16,7 @@ import { generateClassName } from "../../domain/utility/utility";
 
 // Components
 import SectionHeader from "../common/SectionHeader.Component";
+import RoundedButtonComponent from "../common/RoundedButton.Component";
 
 export const styles = (theme: Theme) =>
 	createStyles({
@@ -30,6 +31,11 @@ const HeroSection: React.FC<HeroSectionProps & WithStyles<typeof styles>> = ({
 	return (
 		<Section className={classes.root}>
 			<SectionHeader text="Manage rosters" />
+			<RoundedButtonComponent
+				text="Learn more"
+				color="secondary"
+				variant="contained"
+			/>
 		</Section>
 	);
 };
