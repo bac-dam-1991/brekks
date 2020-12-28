@@ -75,6 +75,7 @@ const CalendarToolbar: React.FC<
 			<Paper
 				className={clsx(classes.paper, classes.navigation)}
 				classes={{ root: classes.paperRoot }}
+				elevation={0}
 			>
 				<PromptedIconButton title="Previous month">
 					<ArrowBackIosRoundedIcon />
@@ -87,6 +88,7 @@ const CalendarToolbar: React.FC<
 			<Paper
 				className={clsx(classes.paper, classes.toolbar)}
 				classes={{ root: classes.paperRoot }}
+				elevation={0}
 			>
 				<PromptedIconButton title="Add staff">
 					<PersonAddRoundedIcon />

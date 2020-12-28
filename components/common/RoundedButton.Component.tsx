@@ -33,7 +33,7 @@ const RoundedButton: React.FC<
 	return (
 		<Button
 			{...buttonProps}
-			className={clsx(className, classes.root)}
+			className={clsx(classes.root, className)}
 			classes={{ root: classes.roundedButton }}
 		>
 			{text}

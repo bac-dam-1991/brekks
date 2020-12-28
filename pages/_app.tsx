@@ -8,16 +8,24 @@ import Head from "next/head";
 import Layout from "../components/common/Layout.Component";
 
 // MUI
-import { ThemeProvider } from "@material-ui/core/styles";
+import {
+	ThemeProvider,
+	createGenerateClassName,
+	StylesProvider,
+} from "@material-ui/core/styles";
 
 // Domain
 import theme from "../domain/common/theme";
 
+const generateClassName = createGenerateClassName({
+	productionPrefix: "BTD-Tech-",
+});
+
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
 	React.useEffect(() => {
-		const jssStyles = document.querySelector("#jss-server-side");
-		if (jssStyles) {
-			jssStyles.parentElement.removeChild(jssStyles);
+		const jssStyles = document.querySelector("jss-server-side");
+		if (jssStyles && jssStyles.parentNode) {
+			jssStyles.parentNode.removeChild(jssStyles);
 		}
 	}, []);
 	return (
@@ -29,11 +37,13 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
 					content="minimum-scale=1, initial-scale=1, width=device-width"
 				/>
 			</Head>
-			<ThemeProvider theme={theme}>
-				<Layout>
-					<Component {...pageProps} />
-				</Layout>
-			</ThemeProvider>
+			<StylesProvider generateClassName={generateClassName} injectFirst>
+				<ThemeProvider theme={theme}>
+					<Layout>
+						<Component {...pageProps} />
+					</Layout>
+				</ThemeProvider>
+			</StylesProvider>
 		</React.Fragment>
 	);
 };
