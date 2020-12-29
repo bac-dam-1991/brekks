@@ -7,9 +7,10 @@
 		"clean": "rimraf dist/",
 		"dev": "next dev",
 		"build": "next build",
-		"start": "node server",
+		"start": "npm run build && node server",
 		"predeploy": "npm run clean && next build",
-		"deploy": "firebase deploy"
+		"deploy": "firebase deploy",
+		"test": "jest"
 	},
 	"engines": {
 		"node": "12"
@@ -32,8 +33,14 @@
 		"react-dom": "^16.13.1"
 	},
 	"devDependencies": {
+		"@babel/core": "^7.12.10",
+		"@babel/preset-env": "^7.12.11",
+		"@types/jest": "^26.0.19",
 		"@types/react": "^17.0.0",
+		"babel-jest": "^26.6.3",
+		"jest": "^26.6.3",
 		"rimraf": "^3.0.2",
+		"ts-node": "^9.1.1",
 		"typescript": "^4.1.3"
 	}
 }
