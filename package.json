@@ -7,7 +7,7 @@
 		"clean": "rimraf dist/",
 		"dev": "next dev",
 		"build": "next build",
-		"start": "npm run build && node server",
+		"start": "node server",
 		"predeploy": "npm run clean && next build",
 		"deploy": "firebase deploy",
 		"test": "jest"
@@ -27,6 +27,7 @@
 		"firebase": "^8.2.1",
 		"firebase-admin": "^9.4.2",
 		"firebase-functions": "^3.13.0",
+		"levenary": "^1.1.1",
 		"moment": "^2.29.1",
 		"next": "^9.5.4",
 		"react": "^16.13.1",
