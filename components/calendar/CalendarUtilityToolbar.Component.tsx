@@ -24,7 +24,9 @@ import PromptedIconButton from "../common/PromptedIconButton.Component";
 
 // NPM
 import clsx from "clsx";
-import { FirstDayOfWeekType } from "../../domain/common/types/FirstDayOfWeekType";
+
+// Contexts
+import { useCalendar } from "../../contexts/CalendarManager.Context";
 
 export const styles = (theme: Theme) =>
 	createStyles({
@@ -44,23 +46,12 @@ export interface CalendarUtilityToolbarProps extends PaperProps {}
 const CalendarUtilityToolbar: React.FC<
 	CalendarUtilityToolbarProps & WithStyles<typeof styles>
 > = ({ classes, className, ...paperProps }) => {
-	// States
-	const [
+	const {
 		firstDayOfWeek,
-		setFirstDayOfWeek,
-	] = React.useState<FirstDayOfWeekType>("Monday");
-	const [expandAll, setExpandAll] = React.useState<boolean>(false);
-
-	// Handler
-	const toggleFirstDayOfWeek = () => {
-		setFirstDayOfWeek((prevState: FirstDayOfWeekType) =>
-			firstDayOfWeek === "Monday" ? "Sunday" : "Monday"
-		);
-	};
-
-	const toggleExpandAll = () => {
-		setExpandAll((prevState: boolean) => !prevState);
-	};
+		toggleExpandAll,
+		toggleFirstDayOfWeek,
+		expandAll,
+	} = useCalendar();
 
 	return (
 		<Paper

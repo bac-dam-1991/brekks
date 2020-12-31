@@ -6,7 +6,7 @@ import clsx from "clsx";
 // Utility
 import { generateClassName } from "../../domain/utility/utility";
 
-// COmponents
+// Components
 import CalendarPanel from "./CalendarPanel.Component";
 
 // MUI
@@ -16,6 +16,11 @@ import {
 	createStyles,
 	Theme,
 } from "@material-ui/core/styles";
+
+// Contexts
+import { useCalendar } from "../../contexts/CalendarManager.Context";
+import ICalendarHead from "../../domain/common/interfaces/ICalendarHead";
+import Calendar from "../../domain/common/classes/calendar";
 
 export const styles = (theme: Theme) =>
 	createStyles({
@@ -35,29 +40,25 @@ const CalendarGrid: React.FC<CalendarGridProps & WithStyles<typeof styles>> = ({
 	className,
 	...divProps
 }) => {
+	// States
+	const [calendarHeadings, setCalendarHeadings] = React.useState<
+		ICalendarHead[]
+	>([]);
+
+	// Contexts
+	const { firstDayOfWeek } = useCalendar();
+
+	// Effects
+	React.useEffect(() => {
+		setCalendarHeadings(Calendar.getDaysOfWeek(firstDayOfWeek));
+	}, [firstDayOfWeek]);
+
 	return (
 		<div className={clsx(classes.root, className)} {...divProps}>
-			<CalendarPanel
-				data={{ discriminator: "ICalendarHead", text: "Monday" }}
-			/>
-			<CalendarPanel
-				data={{ discriminator: "ICalendarHead", text: "Monday" }}
-			/>
-			<CalendarPanel
-				data={{ discriminator: "ICalendarHead", text: "Monday" }}
-			/>
-			<CalendarPanel
-				data={{ discriminator: "ICalendarHead", text: "Monday" }}
-			/>
-			<CalendarPanel
-				data={{ discriminator: "ICalendarHead", text: "Monday" }}
-			/>
-			<CalendarPanel
-				data={{ discriminator: "ICalendarHead", text: "Monday" }}
-			/>
-			<CalendarPanel
-				data={{ discriminator: "ICalendarHead", text: "Monday" }}
-			/>
+			{calendarHeadings.map((heading: ICalendarHead) => (
+				<CalendarPanel data={heading} />
+			))}
+
 			<CalendarPanel
 				data={{ discriminator: "ICalendarBody", date: "21" }}
 			/>
