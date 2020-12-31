@@ -19,7 +19,12 @@ import {
 
 // Contexts
 import { useCalendar } from "../../contexts/CalendarManager.Context";
+
+// Interfaces
 import ICalendarHead from "../../domain/common/interfaces/ICalendarHead";
+import ICalendarDay from "../../domain/common/interfaces/ICalendarDay";
+
+// Classes
 import Calendar from "../../domain/common/classes/calendar";
 
 export const styles = (theme: Theme) =>
@@ -44,6 +49,7 @@ const CalendarGrid: React.FC<CalendarGridProps & WithStyles<typeof styles>> = ({
 	const [calendarHeadings, setCalendarHeadings] = React.useState<
 		ICalendarHead[]
 	>([]);
+	const [calendarDays, setCalendarDays] = React.useState<ICalendarDay[]>([]);
 
 	// Contexts
 	const { firstDayOfWeek } = useCalendar();
@@ -51,17 +57,26 @@ const CalendarGrid: React.FC<CalendarGridProps & WithStyles<typeof styles>> = ({
 	// Effects
 	React.useEffect(() => {
 		setCalendarHeadings(Calendar.getDaysOfWeek(firstDayOfWeek));
+		setCalendarDays(Calendar.generateCalendar(2021, 1, firstDayOfWeek));
 	}, [firstDayOfWeek]);
 
 	return (
 		<div className={clsx(classes.root, className)} {...divProps}>
 			{calendarHeadings.map((heading: ICalendarHead) => (
-				<CalendarPanel data={heading} />
+				<CalendarPanel
+					data={heading}
+					key={heading.text}
+					color="secondary"
+				/>
 			))}
 
-			<CalendarPanel
-				data={{ discriminator: "ICalendarBody", date: "21" }}
-			/>
+			{calendarDays.map((day: ICalendarDay) => (
+				<CalendarPanel
+					data={day}
+					key={day.fullDate}
+					color="secondary"
+				/>
+			))}
 		</div>
 	);
 };

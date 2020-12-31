@@ -4,6 +4,7 @@ import * as React from "react";
 import HeroSection from "../components/homePage/HeroSection.Component";
 import FeaturesSection from "../components/homePage/FeaturesSection.Component";
 import DemoSection from "../components/homePage/DemoSection.Component";
+import { GetStaticProps, GetStaticPropsContext } from "next";
 
 export interface HomePageProps {}
 
