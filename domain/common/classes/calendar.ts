@@ -72,6 +72,13 @@ export default class Calendar {
 			.format(this.DEFAULT_DATE_FORMAT);
 	}
 
+	public static isToday(date: string): boolean {
+		return (
+			moment(date).format(Calendar.DEFAULT_DATE_FORMAT) ===
+			moment().format(Calendar.DEFAULT_DATE_FORMAT)
+		);
+	}
+
 	public static generateCalendar(
 		year: number,
 		month: number,

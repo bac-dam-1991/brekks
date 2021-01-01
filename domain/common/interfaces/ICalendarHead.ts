@@ -3,7 +3,7 @@ export default interface ICalendarHead {
 	text: string;
 }
 
-export const instanecOfICalendarHead = (
+export const instanceOfICalendarHead = (
 	object: any
 ): object is ICalendarHead => {
 	return object.discriminator === "ICalendarHead";
