@@ -22,7 +22,7 @@ const DemoSection: React.FC<
 > = ({}) => {
 	return (
 		<Section>
-			<CalendarContainer />
+			<CalendarContainer color="secondary" />
 		</Section>
 	);
 };

@@ -27,6 +27,9 @@ import ICalendarDay from "../../domain/common/interfaces/ICalendarDay";
 // Classes
 import Calendar from "../../domain/common/classes/calendar";
 
+// Types
+import { ThemeColor } from "../../domain/common/types/ThemeColorType";
+
 export const styles = (theme: Theme) =>
 	createStyles({
 		root: {
@@ -38,11 +41,14 @@ export const styles = (theme: Theme) =>
 	});
 
 export interface CalendarGridProps
-	extends React.HTMLAttributes<HTMLDivElement> {}
+	extends React.HTMLAttributes<HTMLDivElement> {
+	color: ThemeColor;
+}
 
 const CalendarGrid: React.FC<CalendarGridProps & WithStyles<typeof styles>> = ({
 	classes,
 	className,
+	color,
 	...divProps
 }) => {
 	// States
@@ -66,16 +72,12 @@ const CalendarGrid: React.FC<CalendarGridProps & WithStyles<typeof styles>> = ({
 				<CalendarPanel
 					data={heading}
 					key={heading.text}
-					color="secondary"
+					color={color}
 				/>
 			))}
 
 			{calendarDays.map((day: ICalendarDay) => (
-				<CalendarPanel
-					data={day}
-					key={day.fullDate}
-					color="secondary"
-				/>
+				<CalendarPanel data={day} key={day.fullDate} color={color} />
 			))}
 		</div>
 	);

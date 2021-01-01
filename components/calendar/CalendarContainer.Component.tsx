@@ -19,22 +19,27 @@ import CalendarHeading from "./CalendarHeading.Component";
 import CalendarToolbar from "./CalendarToolbar.Component";
 import CalendarGrid from "./CalendarGrid.Component";
 
+// Types
+import { ThemeColor } from "../../domain/common/types/ThemeColorType";
+
 export const styles = (theme: Theme) =>
 	createStyles({
 		root: {},
 	});
 
 export interface CalendarContainerProps
-	extends React.HTMLAttributes<HTMLDivElement> {}
+	extends React.HTMLAttributes<HTMLDivElement> {
+	color: ThemeColor;
+}
 
 const CalendarContainer: React.FC<
 	CalendarContainerProps & WithStyles<typeof styles>
-> = ({ classes, className, ...divProps }) => {
+> = ({ classes, className, color, ...divProps }) => {
 	return (
 		<div className={clsx(className, classes.root)} {...divProps}>
-			<CalendarHeading color="primary" />
+			<CalendarHeading color={color} />
 			<CalendarToolbar />
-			<CalendarGrid />
+			<CalendarGrid color={color} />
 		</div>
 	);
 };
