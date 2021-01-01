@@ -26,7 +26,7 @@ import PromptedIconButton from "../common/PromptedIconButton.Component";
 import clsx from "clsx";
 
 // Contexts
-import { useCalendar } from "../../contexts/CalendarManager.Context";
+import { useCalendarManager } from "../../contexts/CalendarManager.Context";
 
 export const styles = (theme: Theme) =>
 	createStyles({
@@ -51,7 +51,7 @@ const CalendarUtilityToolbar: React.FC<
 		toggleExpandAll,
 		toggleFirstDayOfWeek,
 		expandAll,
-	} = useCalendar();
+	} = useCalendarManager();
 
 	return (
 		<Paper

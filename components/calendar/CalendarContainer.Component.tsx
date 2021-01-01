@@ -22,9 +22,14 @@ import CalendarGrid from "./CalendarGrid.Component";
 // Types
 import { ThemeColor } from "../../domain/common/types/ThemeColorType";
 
+// Contexts
+import CalendarManager from "../../contexts/CalendarManager.Context";
+
 export const styles = (theme: Theme) =>
 	createStyles({
-		root: {},
+		root: {
+			position: "relative",
+		},
 	});
 
 export interface CalendarContainerProps
@@ -36,11 +41,13 @@ const CalendarContainer: React.FC<
 	CalendarContainerProps & WithStyles<typeof styles>
 > = ({ classes, className, color, ...divProps }) => {
 	return (
-		<div className={clsx(className, classes.root)} {...divProps}>
-			<CalendarHeading color={color} />
-			<CalendarToolbar />
-			<CalendarGrid color={color} />
-		</div>
+		<CalendarManager color={color}>
+			<div className={clsx(className, classes.root)} {...divProps}>
+				<CalendarHeading />
+				<CalendarToolbar />
+				<CalendarGrid color={color} />
+			</div>
+		</CalendarManager>
 	);
 };
 

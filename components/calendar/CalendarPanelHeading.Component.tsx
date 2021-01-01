@@ -9,9 +9,6 @@ import {
 } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 
-// Types
-import { ThemeColor } from "../../domain/common/types/ThemeColorType";
-
 // Interfaces
 import ICalendarHead from "../../domain/common/interfaces/ICalendarHead";
 
@@ -20,10 +17,10 @@ import clsx from "clsx";
 
 // Utility
 import { generateClassName } from "../../domain/utility/utility";
+import { useCalendarManager } from "../../contexts/CalendarManager.Context";
 
 export interface CalendarPanelHeadingProps
 	extends React.HTMLAttributes<HTMLDivElement> {
-	color: ThemeColor;
 	data: ICalendarHead;
 }
 
@@ -42,7 +39,9 @@ export const styles = (theme: Theme) =>
 
 const CalendarPanelHeading: React.FC<
 	CalendarPanelHeadingProps & WithStyles<typeof styles>
-> = ({ classes, color, data, ...divProps }) => {
+> = ({ classes, data, ...divProps }) => {
+	const { color } = useCalendarManager();
+
 	return (
 		<div
 			className={clsx(

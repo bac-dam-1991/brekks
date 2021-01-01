@@ -14,7 +14,9 @@ import clsx from "clsx";
 
 // Utility
 import { generateClassName } from "../../domain/utility/utility";
-import { ThemeColor } from "../../domain/common/types/ThemeColorType";
+
+// Contexts
+import { useCalendarManager } from "../../contexts/CalendarManager.Context";
 
 export const styles = (theme: Theme) =>
 	createStyles({
@@ -26,13 +28,13 @@ export const styles = (theme: Theme) =>
 	});
 
 export interface CalendarHeadingProps
-	extends React.HTMLAttributes<HTMLDivElement> {
-	color: ThemeColor;
-}
+	extends React.HTMLAttributes<HTMLDivElement> {}
 
 const CalendarHeading: React.FC<
 	CalendarHeadingProps & WithStyles<typeof styles>
-> = ({ classes, className, color }) => {
+> = ({ classes, className }) => {
+	const { color } = useCalendarManager();
+
 	return (
 		<div className={clsx(className, classes.root)}>
 			<Typography

@@ -15,18 +15,18 @@ import { generateClassName } from "../../domain/utility/utility";
 
 export const styles = (theme: Theme) => createStyles({ root: {} });
 
-export interface DemoSectionProps {}
+export interface AboveFooterSectionProps {}
 
-const DemoSection: React.FC<
-	DemoSectionProps & WithStyles<typeof styles>
+const AboveFooterSection: React.FC<
+	AboveFooterSectionProps & WithStyles<typeof styles>
 > = ({}) => {
 	return (
 		<Section>
-			<CalendarContainer color="primary" />
+			<CalendarContainer color="secondary" />
 		</Section>
 	);
 };
 
 export default withStyles(styles, {
-	classNamePrefix: generateClassName("DemoSection"),
-})(DemoSection);
+	classNamePrefix: generateClassName("AboveFooterSection"),
+})(AboveFooterSection);

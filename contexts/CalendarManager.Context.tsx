@@ -1,11 +1,15 @@
 import * as React from "react";
+
+// Types
 import { FirstDayOfWeekType } from "../domain/common/types/FirstDayOfWeekType";
+import { ThemeColor } from "../domain/common/types/ThemeColorType";
 
 export interface ICalendarContext {
 	firstDayOfWeek: FirstDayOfWeekType;
 	toggleFirstDayOfWeek: () => void;
 	expandAll: boolean;
 	toggleExpandAll: () => void;
+	color: ThemeColor;
 }
 
 export const CalendarContext = React.createContext<ICalendarContext>({
@@ -13,11 +17,17 @@ export const CalendarContext = React.createContext<ICalendarContext>({
 	toggleFirstDayOfWeek: () => {},
 	expandAll: false,
 	toggleExpandAll: () => {},
+	color: "default",
 });
 
-export interface CalendarManagerProps {}
+export interface CalendarManagerProps {
+	color: ThemeColor;
+}
 
-const CalendarManager: React.FC<CalendarManagerProps> = ({ children }) => {
+const CalendarManager: React.FC<CalendarManagerProps> = ({
+	children,
+	color,
+}) => {
 	// States
 	const [
 		firstDayOfWeek,
@@ -43,6 +53,7 @@ const CalendarManager: React.FC<CalendarManagerProps> = ({ children }) => {
 				toggleFirstDayOfWeek,
 				expandAll,
 				toggleExpandAll,
+				color,
 			}}
 		>
 			{children}
@@ -50,6 +61,6 @@ const CalendarManager: React.FC<CalendarManagerProps> = ({ children }) => {
 	);
 };
 
-export const useCalendar = () => React.useContext(CalendarContext);
+export const useCalendarManager = () => React.useContext(CalendarContext);
 
 export default CalendarManager;

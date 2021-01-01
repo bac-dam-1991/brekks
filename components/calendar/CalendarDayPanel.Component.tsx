@@ -9,9 +9,6 @@ import {
 } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 
-// Types
-import { ThemeColor } from "../../domain/common/types/ThemeColorType";
-
 // Interfaces
 import ICalendarDay from "../../domain/common/interfaces/ICalendarDay";
 
@@ -24,12 +21,7 @@ import { generateClassName } from "../../domain/utility/utility";
 
 // Classes
 import Calendar from "../../domain/common/classes/calendar";
-
-export interface CalendarPanelHeadingProps
-	extends React.HTMLAttributes<HTMLDivElement> {
-	color: ThemeColor;
-	data: ICalendarDay;
-}
+import { useCalendarManager } from "../../contexts/CalendarManager.Context";
 
 export const styles = (theme: Theme) =>
 	createStyles({
@@ -42,6 +34,7 @@ export const styles = (theme: Theme) =>
 		container: {
 			height: "100%",
 			transition: "0.3s",
+			cursor: "pointer",
 			"&:hover": {
 				backgroundColor: "inherit",
 			},
@@ -54,9 +47,16 @@ export const styles = (theme: Theme) =>
 		},
 	});
 
+export interface CalendarPanelHeadingProps
+	extends React.HTMLAttributes<HTMLDivElement> {
+	data: ICalendarDay;
+}
+
 const CalendarPanelHeading: React.FC<
 	CalendarPanelHeadingProps & WithStyles<typeof styles>
-> = ({ classes, color, data, ...divProps }) => {
+> = ({ classes, data, ...divProps }) => {
+	const { color } = useCalendarManager();
+
 	return (
 		<div
 			className={clsx(

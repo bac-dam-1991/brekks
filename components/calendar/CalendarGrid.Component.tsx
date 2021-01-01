@@ -18,7 +18,7 @@ import {
 } from "@material-ui/core/styles";
 
 // Contexts
-import { useCalendar } from "../../contexts/CalendarManager.Context";
+import { useCalendarManager } from "../../contexts/CalendarManager.Context";
 
 // Interfaces
 import ICalendarHead from "../../domain/common/interfaces/ICalendarHead";
@@ -27,28 +27,22 @@ import ICalendarDay from "../../domain/common/interfaces/ICalendarDay";
 // Classes
 import Calendar from "../../domain/common/classes/calendar";
 
-// Types
-import { ThemeColor } from "../../domain/common/types/ThemeColorType";
-
 export const styles = (theme: Theme) =>
 	createStyles({
 		root: {
 			display: "grid",
 			gridTemplateColumns: "repeat(7, 1fr)",
 			gridGap: theme.spacing(0.5),
-			margin: theme.spacing(5, 0),
 		},
 	});
 
 export interface CalendarGridProps
-	extends React.HTMLAttributes<HTMLDivElement> {
-	color: ThemeColor;
-}
+	extends React.HTMLAttributes<HTMLDivElement> {}
 
 const CalendarGrid: React.FC<CalendarGridProps & WithStyles<typeof styles>> = ({
 	classes,
 	className,
-	color,
+
 	...divProps
 }) => {
 	// States
@@ -58,7 +52,7 @@ const CalendarGrid: React.FC<CalendarGridProps & WithStyles<typeof styles>> = ({
 	const [calendarDays, setCalendarDays] = React.useState<ICalendarDay[]>([]);
 
 	// Contexts
-	const { firstDayOfWeek } = useCalendar();
+	const { firstDayOfWeek } = useCalendarManager();
 
 	// Effects
 	React.useEffect(() => {
@@ -69,15 +63,11 @@ const CalendarGrid: React.FC<CalendarGridProps & WithStyles<typeof styles>> = ({
 	return (
 		<div className={clsx(classes.root, className)} {...divProps}>
 			{calendarHeadings.map((heading: ICalendarHead) => (
-				<CalendarPanel
-					data={heading}
-					key={heading.text}
-					color={color}
-				/>
+				<CalendarPanel data={heading} key={heading.text} />
 			))}
 
 			{calendarDays.map((day: ICalendarDay) => (
-				<CalendarPanel data={day} key={day.fullDate} color={color} />
+				<CalendarPanel data={day} key={day.fullDate} />
 			))}
 		</div>
 	);

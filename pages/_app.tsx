@@ -17,9 +17,6 @@ import {
 // Domain
 import theme from "../domain/common/theme";
 
-// Contexts
-import CalendarManager from "../contexts/CalendarManager.Context";
-
 const generateClassName = createGenerateClassName({
 	productionPrefix: "BTD-Tech-",
 });
@@ -42,11 +39,9 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
 			</Head>
 			<StylesProvider generateClassName={generateClassName} injectFirst>
 				<ThemeProvider theme={theme}>
-					<CalendarManager>
-						<Layout>
-							<Component {...pageProps} />
-						</Layout>
-					</CalendarManager>
+					<Layout>
+						<Component {...pageProps} />
+					</Layout>
 				</ThemeProvider>
 			</StylesProvider>
 		</React.Fragment>

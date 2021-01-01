@@ -23,9 +23,6 @@ import ICalendarDay, {
 	instanceOfICalendarDay,
 } from "../../domain/common/interfaces/ICalendarDay";
 
-// Types
-import { ThemeColor } from "../../domain/common/types/ThemeColorType";
-
 // Components
 import CalendarPanelHeading from "./CalendarPanelHeading.Component";
 import CalendarDayPanel from "./CalendarDayPanel.Component";
@@ -47,7 +44,6 @@ export const styles = (theme: Theme) =>
 
 export interface CalendarPanelProps extends PaperProps {
 	data: ICalendarHead | ICalendarDay;
-	color: ThemeColor;
 }
 
 const CalendarPanel: React.FC<
@@ -65,11 +61,9 @@ const CalendarPanel: React.FC<
 			elevation={0}
 		>
 			{instanceOfICalendarHead(data) && (
-				<CalendarPanelHeading color={color} data={data} />
+				<CalendarPanelHeading data={data} />
 			)}
-			{instanceOfICalendarDay(data) && (
-				<CalendarDayPanel color={color} data={data} />
-			)}
+			{instanceOfICalendarDay(data) && <CalendarDayPanel data={data} />}
 		</Paper>
 	);
 };

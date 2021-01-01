@@ -19,7 +19,11 @@ import CalendarUtilityToolbar from "./CalendarUtilityToolbar.Component";
 
 export const styles = (theme: Theme) =>
 	createStyles({
-		root: { display: "flex", flexDirection: "row" },
+		root: {
+			display: "flex",
+			flexDirection: "row",
+			margin: theme.spacing(5, 0),
+		},
 		paper: {
 			padding: theme.spacing(0.5),
 			width: "auto",
