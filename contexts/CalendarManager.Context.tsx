@@ -1,5 +1,10 @@
 import * as React from "react";
 
+// Interfaces
+import ICalendarData, {
+	InitialCalendarDataState,
+} from "../domain/common/interfaces/ICalendarData";
+
 // Types
 import { FirstDayOfWeekType } from "../domain/common/types/FirstDayOfWeekType";
 import { ThemeColor } from "../domain/common/types/ThemeColorType";
@@ -10,6 +15,8 @@ export interface ICalendarContext {
 	expandAll: boolean;
 	toggleExpandAll: () => void;
 	color: ThemeColor;
+	calendarData: ICalendarData;
+	handleCalendarDataChange: (newData: ICalendarData) => void;
 }
 
 export const CalendarContext = React.createContext<ICalendarContext>({
@@ -18,6 +25,8 @@ export const CalendarContext = React.createContext<ICalendarContext>({
 	expandAll: false,
 	toggleExpandAll: () => {},
 	color: "default",
+	calendarData: InitialCalendarDataState,
+	handleCalendarDataChange: (newData: ICalendarData) => {},
 });
 
 export interface CalendarManagerProps {
@@ -34,6 +43,9 @@ const CalendarManager: React.FC<CalendarManagerProps> = ({
 		setFirstDayOfWeek,
 	] = React.useState<FirstDayOfWeekType>("Monday");
 	const [expandAll, setExpandAll] = React.useState<boolean>(false);
+	const [calendarData, setCalendarData] = React.useState<ICalendarData>(
+		InitialCalendarDataState
+	);
 
 	// Handler
 	const toggleFirstDayOfWeek = () => {
@@ -46,6 +58,10 @@ const CalendarManager: React.FC<CalendarManagerProps> = ({
 		setExpandAll((prevState: boolean) => !prevState);
 	};
 
+	const handleCalendarDataChange = (newData: ICalendarData) => {
+		setCalendarData(newData);
+	};
+
 	return (
 		<CalendarContext.Provider
 			value={{
@@ -54,6 +70,8 @@ const CalendarManager: React.FC<CalendarManagerProps> = ({
 				expandAll,
 				toggleExpandAll,
 				color,
+				calendarData,
+				handleCalendarDataChange,
 			}}
 		>
 			{children}

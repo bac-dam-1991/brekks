@@ -11,6 +11,7 @@ import { Typography } from "@material-ui/core";
 
 // NPM
 import clsx from "clsx";
+import moment from "moment";
 
 // Utility
 import { generateClassName } from "../../domain/utility/utility";
@@ -33,7 +34,8 @@ export interface CalendarHeadingProps
 const CalendarHeading: React.FC<
 	CalendarHeadingProps & WithStyles<typeof styles>
 > = ({ classes, className }) => {
-	const { color } = useCalendarManager();
+	// Contexts
+	const { color, calendarData } = useCalendarManager();
 
 	return (
 		<div className={clsx(className, classes.root)}>
@@ -44,7 +46,7 @@ const CalendarHeading: React.FC<
 					color === "secondary" && classes.textSecondary
 				)}
 			>
-				<strong>December</strong>
+				<strong>{moment(calendarData.fullDate).format("MMMM")}</strong>
 			</Typography>
 			<Typography
 				variant="h4"
@@ -53,7 +55,7 @@ const CalendarHeading: React.FC<
 					color === "secondary" && classes.textSecondary
 				)}
 			>
-				2020
+				{moment(calendarData.fullDate).format("YYYY")}
 			</Typography>
 		</div>
 	);

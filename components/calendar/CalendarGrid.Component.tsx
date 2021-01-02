@@ -52,13 +52,19 @@ const CalendarGrid: React.FC<CalendarGridProps & WithStyles<typeof styles>> = ({
 	const [calendarDays, setCalendarDays] = React.useState<ICalendarDay[]>([]);
 
 	// Contexts
-	const { firstDayOfWeek } = useCalendarManager();
+	const { firstDayOfWeek, calendarData } = useCalendarManager();
 
 	// Effects
 	React.useEffect(() => {
 		setCalendarHeadings(Calendar.getDaysOfWeek(firstDayOfWeek));
-		setCalendarDays(Calendar.generateCalendar(2021, 1, firstDayOfWeek));
-	}, [firstDayOfWeek]);
+		setCalendarDays(
+			Calendar.generateCalendar(
+				calendarData.year,
+				calendarData.month,
+				firstDayOfWeek
+			)
+		);
+	}, [firstDayOfWeek, calendarData]);
 
 	return (
 		<div className={clsx(classes.root, className)} {...divProps}>

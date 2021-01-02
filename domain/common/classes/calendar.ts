@@ -1,5 +1,6 @@
 // NPM
 import moment from "moment";
+import ICalendarData from "../interfaces/ICalendarData";
 
 // Interfaces
 import ICalendarDay from "../interfaces/ICalendarDay";
@@ -77,6 +78,29 @@ export default class Calendar {
 			moment(date).format(Calendar.DEFAULT_DATE_FORMAT) ===
 			moment().format(Calendar.DEFAULT_DATE_FORMAT)
 		);
+	}
+
+	public static changeMonth(
+		data: ICalendarData,
+		step: number
+	): ICalendarData {
+		const currentMoment: moment.Moment = moment(data.fullDate);
+
+		const newMoment: moment.Moment = currentMoment.add(step, "month");
+
+		return {
+			fullDate: newMoment.format(Calendar.DEFAULT_DATE_FORMAT),
+			year: parseInt(newMoment.format("YYYY")),
+			month: parseInt(newMoment.format("M")),
+		};
+	}
+
+	public static goToNextMonth(data: ICalendarData): ICalendarData {
+		return Calendar.changeMonth(data, 1);
+	}
+
+	public static goToPrevMonth(data: ICalendarData): ICalendarData {
+		return Calendar.changeMonth(data, -1);
 	}
 
 	public static generateCalendar(
