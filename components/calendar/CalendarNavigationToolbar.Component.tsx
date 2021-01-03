@@ -7,6 +7,8 @@ import {
 	Theme,
 } from "@material-ui/core/styles";
 import { PaperProps, Paper } from "@material-ui/core";
+import { DatePicker } from "@material-ui/pickers";
+import { ParsableDate } from "@material-ui/pickers/constants/prop-types";
 
 // Utility
 import { generateClassName } from "../../domain/utility/utility";
@@ -22,6 +24,7 @@ import PromptedButton from "../common/PromptedButton.Component";
 
 // NPM
 import clsx from "clsx";
+import moment from "moment";
 
 // Contexts
 import { useCalendarManager } from "../../contexts/CalendarManager.Context";
@@ -48,6 +51,9 @@ export const styles = (theme: Theme) =>
 		paperRoot: {
 			borderRadius: 26,
 		},
+		datePicker: {
+			display: "none",
+		},
 	});
 
 export interface CalendarNavigationToolbarProps extends PaperProps {}
@@ -56,7 +62,30 @@ const CalendarNavigationToolbar: React.FC<
 	CalendarNavigationToolbarProps & WithStyles<typeof styles>
 > = ({ classes, className, ...paperProps }) => {
 	// Contexts
-	const { calendarData, handleCalendarDataChange } = useCalendarManager();
+	const {
+		calendarData,
+		handleCalendarDataChange,
+		color,
+	} = useCalendarManager();
+
+	// States
+	const [datePickerOpen, setDatePickerOpen] = React.useState<boolean>(false);
+	const [selectedDate, setSelectedDate] = React.useState<ParsableDate>(
+		moment(calendarData.fullDate).toDate()
+	);
+
+	// Effects
+	React.useEffect(() => {
+		const selectedMoment: moment.Moment = moment(selectedDate);
+
+		const year: number = parseInt(selectedMoment.format("YYYY"));
+		const month: number = parseInt(selectedMoment.format("M"));
+		const fullDate: string = selectedMoment.format(
+			Calendar.DEFAULT_DATE_FORMAT
+		);
+
+		handleCalendarDataChange({ ...calendarData, year, fullDate, month });
+	}, [selectedDate]);
 
 	// Handler
 	const handleNextMonthButtonClick = () => {
@@ -65,6 +94,7 @@ const CalendarNavigationToolbar: React.FC<
 		);
 
 		handleCalendarDataChange(nextMonthData);
+		setSelectedDate(nextMonthData.fullDate);
 	};
 
 	const handlePrevMonthButtonClick = () => {
@@ -73,10 +103,23 @@ const CalendarNavigationToolbar: React.FC<
 		);
 
 		handleCalendarDataChange(prevMonthData);
+		setSelectedDate(prevMonthData.fullDate);
 	};
 
 	const handleTodayButtonClick = () => {
 		handleCalendarDataChange(InitialCalendarDataState);
+	};
+
+	const handleDatePickerOpen = () => {
+		setDatePickerOpen(true);
+	};
+
+	const handleDatePickerClose = () => {
+		setDatePickerOpen(false);
+	};
+
+	const handleDateChange = (date: moment.Moment) => {
+		setSelectedDate(date.toDate());
 	};
 
 	return (
@@ -92,7 +135,10 @@ const CalendarNavigationToolbar: React.FC<
 			>
 				<ArrowBackIosRoundedIcon />
 			</PromptedIconButton>
-			<PromptedIconButton title="Open calendar">
+			<PromptedIconButton
+				title="Open calendar"
+				onClick={handleDatePickerOpen}
+			>
 				<CalendarTodayRoundedIcon />
 			</PromptedIconButton>
 			<PromptedButton
@@ -107,6 +153,15 @@ const CalendarNavigationToolbar: React.FC<
 			>
 				<ArrowForwardIosRoundedIcon />
 			</PromptedIconButton>
+			<DatePicker
+				open={datePickerOpen}
+				value={selectedDate}
+				onChange={handleDateChange}
+				onClose={handleDatePickerClose}
+				views={["year", "month"]}
+				className={classes.datePicker}
+				color="secondary"
+			/>
 		</Paper>
 	);
 };
