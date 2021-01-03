@@ -6,9 +6,6 @@ import clsx from "clsx";
 // Utility
 import { generateClassName } from "../../domain/utility/utility";
 
-// Components
-import CalendarPanel from "./CalendarPanel.Component";
-
 // MUI
 import {
 	withStyles,
@@ -27,6 +24,10 @@ import ICalendarDay from "../../domain/common/interfaces/ICalendarDay";
 // Classes
 import Calendar from "../../domain/common/classes/calendar";
 
+// Components
+import CalendarPanelHeading from "./CalendarPanelHeading.Component";
+import CalendarDayPanel from "./CalendarDayPanel.Component";
+
 export const styles = (theme: Theme) =>
 	createStyles({
 		root: {
@@ -42,7 +43,6 @@ export interface CalendarGridProps
 const CalendarGrid: React.FC<CalendarGridProps & WithStyles<typeof styles>> = ({
 	classes,
 	className,
-
 	...divProps
 }) => {
 	// States
@@ -57,23 +57,33 @@ const CalendarGrid: React.FC<CalendarGridProps & WithStyles<typeof styles>> = ({
 	// Effects
 	React.useEffect(() => {
 		setCalendarHeadings(Calendar.getDaysOfWeek(firstDayOfWeek));
-		setCalendarDays(
-			Calendar.generateCalendar(
-				calendarData.year,
-				calendarData.month,
-				firstDayOfWeek
-			)
+
+		const newCalendar: ICalendarDay[] = Calendar.generateCalendar(
+			calendarData.year,
+			calendarData.month,
+			firstDayOfWeek
 		);
-	}, [firstDayOfWeek, calendarData]);
+		setCalendarDays(newCalendar);
+	}, [firstDayOfWeek]);
+
+	React.useEffect(() => {
+		const newCalendar: ICalendarDay[] = Calendar.generateCalendar(
+			calendarData.year,
+			calendarData.month,
+			firstDayOfWeek
+		);
+
+		setCalendarDays(newCalendar);
+	}, [calendarData]);
 
 	return (
 		<div className={clsx(classes.root, className)} {...divProps}>
 			{calendarHeadings.map((heading: ICalendarHead) => (
-				<CalendarPanel data={heading} key={heading.text} />
+				<CalendarPanelHeading data={heading} key={heading.text} />
 			))}
 
 			{calendarDays.map((day: ICalendarDay) => (
-				<CalendarPanel data={day} key={day.fullDate} />
+				<CalendarDayPanel data={day} key={day.fullDate} />
 			))}
 		</div>
 	);

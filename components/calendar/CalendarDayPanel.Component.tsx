@@ -7,7 +7,7 @@ import {
 	createStyles,
 	Theme,
 } from "@material-ui/core/styles";
-import { Typography } from "@material-ui/core";
+import { PaperProps, Typography, Paper } from "@material-ui/core";
 
 // Interfaces
 import ICalendarDay from "../../domain/common/interfaces/ICalendarDay";
@@ -21,10 +21,23 @@ import { generateClassName } from "../../domain/utility/utility";
 
 // Classes
 import Calendar from "../../domain/common/classes/calendar";
+
+// Contexts
 import { useCalendarManager } from "../../contexts/CalendarManager.Context";
 
 export const styles = (theme: Theme) =>
 	createStyles({
+		root: {
+			cursor: "pointer",
+			transition: "0.4s",
+			"&:hover": {
+				boxShadow: theme.shadows[4],
+			},
+		},
+		head: {},
+		body: {
+			height: 100,
+		},
 		primaryTheme: {
 			color: theme.palette.primary.main,
 		},
@@ -47,36 +60,41 @@ export const styles = (theme: Theme) =>
 		},
 	});
 
-export interface CalendarPanelHeadingProps
-	extends React.HTMLAttributes<HTMLDivElement> {
+export interface CalendarPanelHeadingProps extends PaperProps {
 	data: ICalendarDay;
 }
 
 const CalendarPanelHeading: React.FC<
 	CalendarPanelHeadingProps & WithStyles<typeof styles>
-> = ({ classes, data, ...divProps }) => {
+> = ({ classes, className, data, ...paperProps }) => {
 	const { color } = useCalendarManager();
 
 	return (
-		<div
-			className={clsx(
-				classes.container,
-				color === "primary" && classes.primaryTheme,
-				color === "secondary" && classes.secondaryTheme,
-				!data.ofCurrentMonth && classes.ofDifferentMonth
-			)}
-			{...divProps}
+		<Paper
+			className={clsx(classes.root, className, classes.body)}
+			{...paperProps}
+			square
+			elevation={0}
 		>
-			<div className={classes.dateContainer}>
-				<Typography align="right" variant="body2">
-					{Calendar.isToday(data.fullDate) ? (
-						<strong>Today</strong>
-					) : (
-						moment(data.fullDate).date()
-					)}
-				</Typography>
+			<div
+				className={clsx(
+					classes.container,
+					color === "primary" && classes.primaryTheme,
+					color === "secondary" && classes.secondaryTheme,
+					!data.ofCurrentMonth && classes.ofDifferentMonth
+				)}
+			>
+				<div className={classes.dateContainer}>
+					<Typography align="right" variant="body2">
+						{Calendar.isToday(data.fullDate) ? (
+							<strong>Today</strong>
+						) : (
+							moment(data.fullDate).date()
+						)}
+					</Typography>
+				</div>
 			</div>
-		</div>
+		</Paper>
 	);
 };
 
