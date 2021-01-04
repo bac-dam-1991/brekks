@@ -2,6 +2,7 @@ import * as React from "react";
 
 // NPM
 import clsx from "clsx";
+import { useTrail, config } from "react-spring";
 
 // Utility
 import { generateClassName } from "../../domain/utility/utility";
@@ -26,7 +27,7 @@ import Calendar from "../../domain/common/classes/calendar";
 
 // Components
 import CalendarPanelHeading from "./CalendarPanelHeading.Component";
-import CalendarDayPanel from "./CalendarDayPanel.Component";
+import { AnimatedCalendarDayPanel } from "./CalendarDayPanel.Component";
 
 export const styles = (theme: Theme) =>
 	createStyles({
@@ -38,13 +39,14 @@ export const styles = (theme: Theme) =>
 	});
 
 export interface CalendarGridProps
-	extends React.HTMLAttributes<HTMLDivElement> {}
+	extends React.HTMLAttributes<HTMLDivElement> {
+	startAnim?: boolean;
+}
 
-const CalendarGrid: React.FC<CalendarGridProps & WithStyles<typeof styles>> = ({
-	classes,
-	className,
-	...divProps
-}) => {
+const CalendarGrid = React.forwardRef<
+	HTMLDivElement,
+	CalendarGridProps & WithStyles<typeof styles>
+>(({ classes, className, startAnim, ...divProps }, ref) => {
 	// States
 	const [calendarHeadings, setCalendarHeadings] = React.useState<
 		ICalendarHead[]
@@ -76,18 +78,31 @@ const CalendarGrid: React.FC<CalendarGridProps & WithStyles<typeof styles>> = ({
 		setCalendarDays(newCalendar);
 	}, [calendarData]);
 
+	// Spring
+
+	const trail = useTrail(calendarDays.length, {
+		config: { mass: 2, tension: 2200, friction: 90 },
+		from: { height: 0, opacity: 0 },
+		height: startAnim ? 100 : 0,
+		opacity: startAnim ? 1 : 0,
+	});
+
 	return (
-		<div className={clsx(classes.root, className)} {...divProps}>
+		<div className={clsx(classes.root, className)} {...divProps} ref={ref}>
 			{calendarHeadings.map((heading: ICalendarHead) => (
 				<CalendarPanelHeading data={heading} key={heading.text} />
 			))}
 
-			{calendarDays.map((day: ICalendarDay) => (
-				<CalendarDayPanel data={day} key={day.fullDate} />
+			{trail.map(({ height, opacity }, index) => (
+				<AnimatedCalendarDayPanel
+					data={calendarDays[index]}
+					key={calendarDays[index].fullDate}
+					style={{ height, opacity }}
+				/>
 			))}
 		</div>
 	);
-};
+});
 
 export default withStyles(styles, {
 	classNamePrefix: generateClassName("CalendarGrid"),

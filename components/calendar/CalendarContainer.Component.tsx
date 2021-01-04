@@ -25,6 +25,7 @@ import { ThemeColor } from "../../domain/common/types/ThemeColorType";
 
 // Contexts
 import CalendarManager from "../../contexts/CalendarManager.Context";
+import { Waypoint } from "react-waypoint";
 
 export const styles = (theme: Theme) =>
 	createStyles({
@@ -41,13 +42,23 @@ export interface CalendarContainerProps
 const CalendarContainer: React.FC<
 	CalendarContainerProps & WithStyles<typeof styles>
 > = ({ classes, className, color, ...divProps }) => {
+	// States
+	const [startAnim, setStartAnim] = React.useState<boolean>(false);
+
+	// Handlers
+	const handleCalendarGridEnter = () => {
+		setStartAnim(true);
+	};
+
 	return (
 		<CalendarManager color={color}>
 			<div className={clsx(className, classes.root)} {...divProps}>
 				<CalendarHeading />
 				<CalendarToolbar />
-				<CalendarGrid color={color} />
+
+				<CalendarGrid color={color} startAnim={startAnim} />
 			</div>
+			<Waypoint onEnter={handleCalendarGridEnter} />
 		</CalendarManager>
 	);
 };

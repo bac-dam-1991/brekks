@@ -15,6 +15,7 @@ import ICalendarDay from "../../domain/common/interfaces/ICalendarDay";
 // NPM
 import clsx from "clsx";
 import moment from "moment";
+import { animated } from "react-spring";
 
 // Utility
 import { generateClassName } from "../../domain/utility/utility";
@@ -64,9 +65,10 @@ export interface CalendarDayPanelProps extends PaperProps {
 	data: ICalendarDay;
 }
 
-const CalendarDayPanel: React.FC<
+const CalendarDayPanel = React.forwardRef<
+	HTMLDivElement,
 	CalendarDayPanelProps & WithStyles<typeof styles>
-> = ({ classes, className, data, ...paperProps }) => {
+>(({ classes, className, data, ...paperProps }, ref) => {
 	const { color } = useCalendarManager();
 
 	return (
@@ -75,6 +77,7 @@ const CalendarDayPanel: React.FC<
 			{...paperProps}
 			square
 			elevation={0}
+			ref={ref}
 		>
 			<div
 				className={clsx(
@@ -96,8 +99,12 @@ const CalendarDayPanel: React.FC<
 			</div>
 		</Paper>
 	);
-};
+});
 
-export default withStyles(styles, {
+const StyledCalendarDayPanel = withStyles(styles, {
 	classNamePrefix: generateClassName("CalendarDayPanel"),
 })(CalendarDayPanel);
+
+export default StyledCalendarDayPanel;
+
+export const AnimatedCalendarDayPanel = animated(StyledCalendarDayPanel);
