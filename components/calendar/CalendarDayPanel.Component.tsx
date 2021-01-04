@@ -60,12 +60,12 @@ export const styles = (theme: Theme) =>
 		},
 	});
 
-export interface CalendarPanelHeadingProps extends PaperProps {
+export interface CalendarDayPanelProps extends PaperProps {
 	data: ICalendarDay;
 }
 
-const CalendarPanelHeading: React.FC<
-	CalendarPanelHeadingProps & WithStyles<typeof styles>
+const CalendarDayPanel: React.FC<
+	CalendarDayPanelProps & WithStyles<typeof styles>
 > = ({ classes, className, data, ...paperProps }) => {
 	const { color } = useCalendarManager();
 
@@ -99,5 +99,5 @@ const CalendarPanelHeading: React.FC<
 };
 
 export default withStyles(styles, {
-	classNamePrefix: generateClassName("CalendarPanelHeading"),
-})(CalendarPanelHeading);
+	classNamePrefix: generateClassName("CalendarDayPanel"),
+})(CalendarDayPanel);

@@ -108,6 +108,7 @@ const CalendarNavigationToolbar: React.FC<
 
 	const handleTodayButtonClick = () => {
 		handleCalendarDataChange(InitialCalendarDataState);
+		setSelectedDate(InitialCalendarDataState.fullDate);
 	};
 
 	const handleDatePickerOpen = () => {
