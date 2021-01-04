@@ -1,5 +1,8 @@
 import * as React from "react";
 
+// Next
+import Link from "next/link";
+
 import {
 	AppBar,
 	AppBarProps,
@@ -37,37 +40,46 @@ export const styles = (theme: Theme) =>
 			display: "flex",
 			flexDirection: "row-reverse",
 		},
+		logo: {
+			cursor: "pointer",
+		},
 	});
 
 const Navbar = React.forwardRef<
 	HTMLDivElement,
 	NavbarProps & WithStyles<typeof styles>
->(({ classes, className }, ref) => (
-	<React.Fragment>
-		<AppBar
-			ref={ref}
-			className={clsx(classes.root, className)}
-			color="primary"
-		>
-			<Toolbar variant="dense">
-				<Typography variant="h6">
-					<strong>brekks</strong>
-				</Typography>
-				<div className={classes.linksContainer}>
-					<RoundedButton
-						text="Sign up"
-						variant="contained"
-						color="secondary"
-					/>
-				</div>
-				<IconButton color="inherit">
-					<MenuRoundedIcon />
-				</IconButton>
-			</Toolbar>
-		</AppBar>
-		<Toolbar variant="dense" />
-	</React.Fragment>
-));
+>(({ classes, className }, ref) => {
+	return (
+		<React.Fragment>
+			<AppBar
+				ref={ref}
+				className={clsx(classes.root, className)}
+				color="primary"
+			>
+				<Toolbar variant="dense">
+					<Link href="/">
+						<Typography variant="h6" className={classes.logo}>
+							<strong>brekks</strong>
+						</Typography>
+					</Link>
+					<div className={classes.linksContainer}>
+						<Link href="/signup">
+							<RoundedButton
+								text="Sign up"
+								variant="contained"
+								color="secondary"
+							/>
+						</Link>
+					</div>
+					<IconButton color="inherit">
+						<MenuRoundedIcon />
+					</IconButton>
+				</Toolbar>
+			</AppBar>
+			<Toolbar variant="dense" />
+		</React.Fragment>
+	);
+});
 
 export default withStyles(styles, {
 	classNamePrefix: generateClassName("Navbar"),

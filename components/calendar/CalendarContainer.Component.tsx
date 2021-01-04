@@ -6,6 +6,7 @@ import {
 	WithStyles,
 	createStyles,
 	Theme,
+	ThemeProvider,
 } from "@material-ui/core/styles";
 
 // NPM

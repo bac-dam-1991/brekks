@@ -11,4 +11,15 @@ const theme = createMuiTheme({
 	},
 });
 
+export const invertedTheme = createMuiTheme({
+	palette: {
+		primary: {
+			main: "#335C81",
+		},
+		secondary: {
+			main: "#DB6C79",
+		},
+	},
+});
+
 export default theme;

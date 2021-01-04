@@ -6,7 +6,7 @@ import {
 	createStyles,
 	Theme,
 } from "@material-ui/core/styles";
-import { PaperProps, Paper } from "@material-ui/core";
+import { PaperProps, Paper, ThemeProvider } from "@material-ui/core";
 import { DatePicker } from "@material-ui/pickers";
 import { ParsableDate } from "@material-ui/pickers/constants/prop-types";
 
@@ -36,6 +36,9 @@ import ICalendarData, {
 
 // Classes
 import Calendar from "../../domain/common/classes/calendar";
+
+// Theme
+import theme, { invertedTheme } from "../../domain/common/theme";
 
 export const styles = (theme: Theme) =>
 	createStyles({
@@ -154,15 +157,17 @@ const CalendarNavigationToolbar: React.FC<
 			>
 				<ArrowForwardIosRoundedIcon />
 			</PromptedIconButton>
-			<DatePicker
-				open={datePickerOpen}
-				value={selectedDate}
-				onChange={handleDateChange}
-				onClose={handleDatePickerClose}
-				views={["year", "month"]}
-				className={classes.datePicker}
-				color="secondary"
-			/>
+			<ThemeProvider theme={color === "primary" ? theme : invertedTheme}>
+				<DatePicker
+					open={datePickerOpen}
+					value={selectedDate}
+					onChange={handleDateChange}
+					onClose={handleDatePickerClose}
+					views={["year", "month"]}
+					className={classes.datePicker}
+					color="secondary"
+				/>
+			</ThemeProvider>
 		</Paper>
 	);
 };
