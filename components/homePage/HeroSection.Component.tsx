@@ -30,7 +30,7 @@ const HeroSection: React.FC<HeroSectionProps & WithStyles<typeof styles>> = ({
 }) => {
 	return (
 		<Section className={classes.root}>
-			<SectionHeader text="Manage rosters" />
+			<SectionHeader text="Manage rosters" color="primary" />
 			<RoundedButtonComponent
 				text="Learn more"
 				color="secondary"

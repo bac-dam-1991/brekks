@@ -27,7 +27,10 @@ const FeatureSection: React.FC<
 > = ({ classes }) => {
 	return (
 		<Section className={classes.root}>
-			<SectionHeader text="Efficiency at your finger tips" />
+			<SectionHeader
+				text="Efficiency at your finger tips"
+				color="primary"
+			/>
 		</Section>
 	);
 };
