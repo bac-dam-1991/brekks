@@ -10,9 +10,8 @@ export interface HomePageProps {}
 
 const HomePage: React.FC<HomePageProps> = () => {
 	return (
-		<div style={{ padding: "1px 0px" }}>
+		<div>
 			<HeroSection />
-
 			<FeaturesSection />
 			<DemoSection />
 			<AboveFooterSection />

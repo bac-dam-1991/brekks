@@ -28,6 +28,9 @@ import clsx from "clsx";
 import StyledPasswordInput from "../common/PasswordInput.Component";
 import StyledLoadingButton from "../common/LoadingButton.Component";
 
+// Next
+import { useRouter } from "next/router";
+
 export const styles = (theme: Theme) =>
 	createStyles({
 		root: {
@@ -46,6 +49,14 @@ const SignUpPanel = React.forwardRef<
 	HTMLDivElement,
 	SignUpPanelProps & WithStyles<typeof styles>
 >(({ classes, className, ...paperProps }, ref) => {
+	// Router
+	const router = useRouter();
+
+	// Handlers
+	const handleSignUp = () => {
+		router.push("/profile");
+	};
+
 	return (
 		<Paper
 			square
@@ -76,11 +87,12 @@ const SignUpPanel = React.forwardRef<
 					<StyledLoadingButton
 						text="Create account"
 						loading={false}
+						onClick={handleSignUp}
 					/>
 				</Grid>
 				<Grid item xs={12}>
 					<Typography variant="caption" align="right" display="block">
-						Already has an account?{" "}
+						Already has an account?&nbsp;
 						<Link href="login">Login here</Link>
 					</Typography>
 				</Grid>

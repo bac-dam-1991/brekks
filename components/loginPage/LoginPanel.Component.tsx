@@ -28,6 +28,9 @@ import clsx from "clsx";
 import StyledPasswordInput from "../common/PasswordInput.Component";
 import StyledLoadingButton from "../common/LoadingButton.Component";
 
+// Next
+import { useRouter } from "next/router";
+
 export const styles = (theme: Theme) =>
 	createStyles({
 		root: {
@@ -46,6 +49,12 @@ const LoginPanel = React.forwardRef<
 	HTMLDivElement,
 	LoginPanelProps & WithStyles<typeof styles>
 >(({ classes, className, ...paperProps }, ref) => {
+	const router = useRouter();
+
+	const handleLogin = () => {
+		router.push("/profile");
+	};
+
 	return (
 		<Paper
 			square
@@ -67,7 +76,11 @@ const LoginPanel = React.forwardRef<
 					<StyledPasswordInput label="Password" color="secondary" />
 				</Grid>
 				<Grid item xs={12}>
-					<StyledLoadingButton text="Login" loading={false} />
+					<StyledLoadingButton
+						text="Login"
+						loading={false}
+						onClick={handleLogin}
+					/>
 				</Grid>
 				<Grid item xs={12}>
 					<Typography variant="caption" align="right" display="block">

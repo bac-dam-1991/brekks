@@ -11,6 +11,9 @@ import {
 	Theme,
 } from "@material-ui/core/styles";
 
+// Next
+import Link from "next/link";
+
 // Utility
 import { generateClassName } from "../../domain/utility/utility";
 
@@ -31,11 +34,13 @@ const HeroSection: React.FC<HeroSectionProps & WithStyles<typeof styles>> = ({
 	return (
 		<Section className={classes.root}>
 			<SectionHeader text="Manage rosters" color="primary" />
-			<RoundedButtonComponent
-				text="Learn more"
-				color="secondary"
-				variant="contained"
-			/>
+			<Link href="/about">
+				<RoundedButtonComponent
+					text="Learn more"
+					color="secondary"
+					variant="contained"
+				/>
+			</Link>
 		</Section>
 	);
 };

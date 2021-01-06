@@ -11,6 +11,8 @@ import {
 	createStyles,
 	Theme,
 } from "@material-ui/core/styles";
+
+// Utility
 import { generateClassName } from "../../domain/utility/utility";
 
 export const styles = (theme: Theme) => createStyles({ root: {} });
