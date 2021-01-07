@@ -2,7 +2,7 @@
 import moment from "moment";
 
 // Classes
-import Calendar from "../classes/calendar";
+import Calendar from "../classes/Calendar";
 
 export default interface ICalendarData {
 	year: number;

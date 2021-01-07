@@ -14,8 +14,8 @@ import { generateClassName } from "../../domain/utility/utility";
 
 // NPM
 import clsx from "clsx";
-import DetailsContainer from "../common/DetailsContainer.Component";
-import DetailItem from "../common/DetailItem.Component";
+import DetailsContainer from "../detailItems/DetailsContainer.Component";
+import DetailItem from "../detailItems/DetailItem.Component";
 
 export const styles = (theme: Theme) =>
 	createStyles({
@@ -43,10 +43,7 @@ const ProfileSummary = React.forwardRef<
 			className={clsx(classes.root, className)}
 		>
 			<Paper elevation={0} className={classes.paper} square>
-				<Typography variant="h5" color="secondary" paragraph>
-					About you
-				</Typography>
-				<DetailsContainer>
+				<DetailsContainer title="Your details">
 					<DetailItem
 						detail={{
 							value: "JNewuser123",

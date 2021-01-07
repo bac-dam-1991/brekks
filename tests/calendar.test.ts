@@ -1,5 +1,5 @@
 // Classes
-import Calendar from "../domain/common/classes/calendar";
+import Calendar from "../domain/common/classes/Calendar";
 
 // Interfaces
 import ICalendarDay from "../domain/common/interfaces/ICalendarDay";

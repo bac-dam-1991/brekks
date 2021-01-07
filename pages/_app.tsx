@@ -39,7 +39,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
 					content="minimum-scale=1, initial-scale=1, width=device-width"
 				/>
 			</Head>
-			<StylesProvider generateClassName={generateClassName} injectFirst>
+			<StylesProvider generateClassName={generateClassName}>
 				<MuiPickersUtilsProvider utils={MomentUtils}>
 					<ThemeProvider theme={theme}>
 						<Layout>

@@ -35,7 +35,7 @@ import ICalendarData, {
 } from "../../domain/common/interfaces/ICalendarData";
 
 // Classes
-import Calendar from "../../domain/common/classes/calendar";
+import Calendar from "../../domain/common/classes/Calendar";
 
 // Theme
 import theme, { invertedTheme } from "../../domain/common/theme";

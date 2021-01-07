@@ -21,7 +21,7 @@ import { animated } from "react-spring";
 import { generateClassName } from "../../domain/utility/utility";
 
 // Classes
-import Calendar from "../../domain/common/classes/calendar";
+import Calendar from "../../domain/common/classes/Calendar";
 
 // Contexts
 import { useCalendarManager } from "../../contexts/CalendarManager.Context";

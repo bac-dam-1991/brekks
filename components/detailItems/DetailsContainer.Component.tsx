@@ -7,7 +7,7 @@ import {
 	createStyles,
 	Theme,
 } from "@material-ui/core/styles";
-import { Grid, GridProps } from "@material-ui/core";
+import { Grid, GridProps, Typography } from "@material-ui/core";
 
 // Utility
 import { generateClassName } from "../../domain/utility/utility";
@@ -18,20 +18,16 @@ import clsx from "clsx";
 export const styles = (theme: Theme) =>
 	createStyles({
 		root: {},
-		paper: {
-			padding: theme.spacing(2),
-			"&:hover": {
-				boxShadow: theme.shadows[1],
-			},
-		},
 	});
 
-export interface DetailContainerProps extends GridProps {}
+export interface DetailContainerProps extends GridProps {
+	title: string;
+}
 
 const DetailContainer = React.forwardRef<
 	HTMLDivElement,
 	DetailContainerProps & WithStyles<typeof styles>
->(({ classes, className, children, ...gridProps }, ref) => {
+>(({ classes, className, children, title, ...gridProps }, ref) => {
 	return (
 		<Grid
 			container
@@ -40,6 +36,11 @@ const DetailContainer = React.forwardRef<
 			className={clsx(classes.root, className)}
 			ref={ref}
 		>
+			<Grid item xs={12}>
+				<Typography variant="h5" color="secondary">
+					{title}
+				</Typography>
+			</Grid>
 			{children}
 		</Grid>
 	);

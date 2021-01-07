@@ -24,16 +24,6 @@ export const styles = (theme: Theme) =>
 			flexDirection: "row",
 			margin: theme.spacing(5, 0),
 		},
-		paper: {
-			padding: theme.spacing(0.5),
-			width: "auto",
-			boxShadow: "none",
-			"&:hover": {
-				boxShadow: theme.shadows[4],
-			},
-		},
-		paperRoot: { borderRadius: 26 },
-		toolbar: {},
 	});
 
 export interface CalendarToolbarProps

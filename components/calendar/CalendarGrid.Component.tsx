@@ -23,7 +23,7 @@ import ICalendarHead from "../../domain/common/interfaces/ICalendarHead";
 import ICalendarDay from "../../domain/common/interfaces/ICalendarDay";
 
 // Classes
-import Calendar from "../../domain/common/classes/calendar";
+import Calendar from "../../domain/common/classes/Calendar";
 
 // Components
 import CalendarPanelHeading from "./CalendarPanelHeading.Component";
