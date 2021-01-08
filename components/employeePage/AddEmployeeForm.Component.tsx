@@ -7,7 +7,6 @@ import {
 	createStyles,
 	Theme,
 } from "@material-ui/core/styles";
-import { PaperProps, Paper } from "@material-ui/core";
 
 // NPM
 import clsx from "clsx";
@@ -17,34 +16,31 @@ import { generateClassName } from "../../domain/utility/utility";
 
 // Components
 import PersonalDetailsFormSection from "./PersonalDetailsFormSection.Component";
+import ContactDetailsFormSection from "./ContactDetailsFormSection.Component";
+import AddressDetailsFormSection from "./AddressDetailsFormSection.Component";
 
 export const styles = (theme: Theme) =>
 	createStyles({
-		root: {
-			marginTop: theme.spacing(5),
-			padding: theme.spacing(2),
-			"&:hover": {
-				boxShadow: theme.shadows[2],
-			},
-		},
+		root: {},
 	});
 
-export interface AddEmployeeFormProps extends PaperProps {}
+export interface AddEmployeeFormProps
+	extends React.HTMLAttributes<HTMLFormElement> {}
 
 const AddEmployeeForm = React.forwardRef<
-	HTMLDivElement,
+	HTMLFormElement,
 	AddEmployeeFormProps & WithStyles<typeof styles>
->(({ classes, className, ...paperProps }, ref) => {
+>(({ classes, className, ...formProps }, ref) => {
 	return (
-		<Paper
-			square
-			className={clsx(classes.root, className)}
-			{...paperProps}
-			elevation={0}
+		<form
+			className={clsx(className, classes.root)}
+			{...formProps}
 			ref={ref}
 		>
 			<PersonalDetailsFormSection />
-		</Paper>
+			<AddressDetailsFormSection />
+			<ContactDetailsFormSection />
+		</form>
 	);
 });
 

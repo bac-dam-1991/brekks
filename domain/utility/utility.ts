@@ -20,3 +20,10 @@ export const generateSelectableItem = (value: string): ISelectableItem => {
 	const key: string = value.toLowerCase().replace(new RegExp(" ", "g"), "-");
 	return { key, value, text: value };
 };
+
+export const sortAlphabetically = (a: string, b: string): number => {
+	if (a > b) return 1;
+	if (b > a) return -1;
+
+	return 0;
+};

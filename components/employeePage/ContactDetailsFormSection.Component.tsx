@@ -12,21 +12,14 @@ import {
 	Paper,
 	PaperProps,
 	TextField,
-	ThemeProvider,
 	Typography,
 } from "@material-ui/core";
-import { KeyboardDatePicker } from "@material-ui/pickers";
-import { ParsableDate } from "@material-ui/pickers/constants/prop-types";
 
 // NPM
 import clsx from "clsx";
-import moment from "moment";
 
 // Utility
 import { generateClassName } from "../../domain/utility/utility";
-
-// Theme
-import { invertedTheme } from "../../domain/common/theme";
 
 // Components
 import GenericSelect from "../common/GenericSelect.Component";
@@ -45,25 +38,23 @@ export const styles = (theme: Theme) =>
 		},
 	});
 
-export interface PersonalDetailsFormSectionProps extends PaperProps {}
+export interface ContactDetailsFormSectionProps extends PaperProps {}
 
-const PersonalDetailsFormSection = React.forwardRef<
+const ContactDetailsFormSection = React.forwardRef<
 	HTMLDivElement,
-	PersonalDetailsFormSectionProps & WithStyles<typeof styles>
+	ContactDetailsFormSectionProps & WithStyles<typeof styles>
 >(({ classes, className, ...paperProps }, ref) => {
 	// States
-	const [dob, setDob] = React.useState<ParsableDate>(moment().toDate());
-	const [gender, setGender] = React.useState<string>("");
+	const [
+		preferredContactMethod,
+		setPreferredContactMethod,
+	] = React.useState<string>("");
 
 	// Handlers
-	const handleDobChange = (date: moment.Moment) => {
-		setDob(date.toDate());
-	};
-
-	const handleGenderChange = (
+	const handlePreferredContactMethodChange = (
 		event: React.ChangeEvent<{ value: unknown }>
 	) => {
-		setGender(event.target.value as string);
+		setPreferredContactMethod(event.target.value as string);
 	};
 
 	return (
@@ -77,14 +68,14 @@ const PersonalDetailsFormSection = React.forwardRef<
 			<Grid container spacing={2}>
 				<Grid item xs={12}>
 					<Typography variant="h6" color="secondary">
-						<strong>Personal details</strong>
+						<strong>Contact details</strong>
 					</Typography>
 				</Grid>
 				<Grid item xs={12} sm={4}>
 					<TextField
 						variant="outlined"
 						color="secondary"
-						label="Given name"
+						label="Mobile"
 						fullWidth
 					/>
 				</Grid>
@@ -92,7 +83,7 @@ const PersonalDetailsFormSection = React.forwardRef<
 					<TextField
 						variant="outlined"
 						color="secondary"
-						label="Middle name"
+						label="Home"
 						fullWidth
 					/>
 				</Grid>
@@ -100,30 +91,24 @@ const PersonalDetailsFormSection = React.forwardRef<
 					<TextField
 						variant="outlined"
 						color="secondary"
-						label="Family name"
+						label="Fax"
 						fullWidth
 					/>
 				</Grid>
 				<Grid item xs={12} sm={4}>
-					<ThemeProvider theme={invertedTheme}>
-						<KeyboardDatePicker
-							inputVariant="outlined"
-							format="DD/MM/YYYY"
-							fullWidth
-							disableFuture
-							value={dob}
-							onChange={handleDobChange}
-							views={["year", "month", "date"]}
-							openTo={"year"}
-						/>
-					</ThemeProvider>
+					<TextField
+						variant="outlined"
+						color="secondary"
+						label="Email"
+						fullWidth
+					/>
 				</Grid>
 				<Grid item xs={12} sm={4}>
 					<GenericSelect
-						selectLabel="Gender"
-						value={gender}
-						onValueChange={handleGenderChange}
-						valuesList={Person.getSelectableGenders()}
+						selectLabel="Preferred contact method"
+						value={preferredContactMethod}
+						onValueChange={handlePreferredContactMethodChange}
+						valuesList={Person.getSelectablePreferredContactMethods()}
 					/>
 				</Grid>
 			</Grid>
@@ -132,5 +117,5 @@ const PersonalDetailsFormSection = React.forwardRef<
 });
 
 export default withStyles(styles, {
-	classNamePrefix: generateClassName("PersonalDetailsFormSection"),
-})(PersonalDetailsFormSection);
+	classNamePrefix: generateClassName("ContactDetailsFormSection"),
+})(ContactDetailsFormSection);
