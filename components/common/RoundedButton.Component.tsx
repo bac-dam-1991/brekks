@@ -19,7 +19,9 @@ export const styles = (theme: Theme) =>
 	createStyles({
 		root: {},
 		roundedButton: {
-			borderRadius: 18,
+			"&.MuiButton-root": {
+				borderRadius: 18,
+			},
 		},
 	});
 

@@ -12,12 +12,6 @@ import { PaperProps, Paper } from "@material-ui/core";
 // Utility
 import { generateClassName } from "../../domain/utility/utility";
 
-// Icons
-import PersonAddRoundedIcon from "@material-ui/icons/PersonAddRounded";
-
-// Components
-import PromptedIconButton from "../common/PromptedIconButton.Component";
-
 // NPM
 import clsx from "clsx";
 
@@ -31,14 +25,14 @@ export const styles = (theme: Theme) =>
 				boxShadow: theme.shadows[4],
 			},
 		},
-		paperRoot: { borderRadius: 26 },
+		paperRoot: { "&.MuiPaper-rounded": { borderRadius: 26 } },
 	});
 
 export interface EmployeeUtilityToolbarProps extends PaperProps {}
 
 const EmployeeUtilityToolbar: React.FC<
 	EmployeeUtilityToolbarProps & WithStyles<typeof styles>
-> = ({ classes, className, ...paperProps }) => {
+> = ({ classes, className, children, ...paperProps }) => {
 	return (
 		<Paper
 			className={clsx(classes.root, className)}
@@ -46,9 +40,7 @@ const EmployeeUtilityToolbar: React.FC<
 			{...paperProps}
 			elevation={0}
 		>
-			<PromptedIconButton title="Add staff">
-				<PersonAddRoundedIcon />
-			</PromptedIconButton>
+			{children}
 		</Paper>
 	);
 };

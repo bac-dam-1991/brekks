@@ -14,7 +14,7 @@ import { generateClassName } from "../../domain/utility/utility";
 // NPM
 import DetailItem from "./DetailItem.Component";
 import IEmployee from "../../domain/common/interfaces/IEmployee";
-import Employee from "../../domain/common/classes/employee";
+import Employee from "../../domain/common/classes/Employee";
 
 export const styles = (theme: Theme) =>
 	createStyles({

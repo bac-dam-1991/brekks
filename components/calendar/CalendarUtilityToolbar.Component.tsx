@@ -38,7 +38,7 @@ export const styles = (theme: Theme) =>
 				boxShadow: theme.shadows[4],
 			},
 		},
-		paperRoot: { borderRadius: 26 },
+		paperRoot: { "&.MuiPaper-rounded": { borderRadius: 26 } },
 	});
 
 export interface CalendarUtilityToolbarProps extends PaperProps {}

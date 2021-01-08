@@ -20,6 +20,7 @@ import { generateClassName } from "../../domain/utility/utility";
 
 // Components
 import SectionComponent from "./Section.Component";
+import UtilityToolbar from "./UtilityToolbar.Component";
 
 export const styles = (theme: Theme) =>
 	createStyles({
@@ -35,25 +36,35 @@ export const styles = (theme: Theme) =>
 		},
 	});
 
-export interface PageToolbarProps {}
+export interface PageToolbarProps {
+	href?: string;
+	returnButtonText?: string;
+}
 
 const PageToolbar = React.forwardRef<
 	HTMLDivElement,
 	PageToolbarProps & WithStyles<typeof styles>
->(({ classes, children }, ref) => {
-	return (
-		<SectionComponent ref={ref} className={classes.root}>
-			<div className={classes.container}>
-				<Link href="/profile">
-					<Button startIcon={<KeyboardReturnRoundedIcon />}>
-						Profile
-					</Button>
-				</Link>
-				<div className={classes.toolbarContainer}>{children}</div>
-			</div>
-		</SectionComponent>
-	);
-});
+>(
+	(
+		{ classes, children, href = "/profile", returnButtonText = "Profile" },
+		ref
+	) => {
+		return (
+			<SectionComponent ref={ref} className={classes.root}>
+				<div className={classes.container}>
+					<Link href={href}>
+						<Button startIcon={<KeyboardReturnRoundedIcon />}>
+							{returnButtonText}
+						</Button>
+					</Link>
+					<div className={classes.toolbarContainer}>
+						<UtilityToolbar>{children}</UtilityToolbar>
+					</div>
+				</div>
+			</SectionComponent>
+		);
+	}
+);
 
 export default withStyles(styles, {
 	classNamePrefix: generateClassName("PageToolbar"),

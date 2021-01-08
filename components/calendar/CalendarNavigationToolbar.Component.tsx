@@ -52,7 +52,9 @@ export const styles = (theme: Theme) =>
 			},
 		},
 		paperRoot: {
-			borderRadius: 26,
+			"&.MuiPaper-rounded": {
+				borderRadius: 26,
+			},
 		},
 		datePicker: {
 			display: "none",
