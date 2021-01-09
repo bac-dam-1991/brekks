@@ -11,7 +11,6 @@ import {
 	FormControl,
 	FormControlProps,
 	InputLabel,
-	MenuItem,
 	Select,
 } from "@material-ui/core";
 

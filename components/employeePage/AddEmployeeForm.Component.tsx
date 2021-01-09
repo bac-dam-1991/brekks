@@ -31,6 +31,17 @@ const AddEmployeeForm = React.forwardRef<
 	HTMLFormElement,
 	AddEmployeeFormProps & WithStyles<typeof styles>
 >(({ classes, className, ...formProps }, ref) => {
+	const [samePostalAddress, setSamePostalAddress] = React.useState<boolean>(
+		true
+	);
+
+	// handlers
+	const handleSamePostalAddressChange = (
+		event: React.ChangeEvent<HTMLInputElement>
+	) => {
+		setSamePostalAddress(event.target.checked);
+	};
+
 	return (
 		<form
 			className={clsx(className, classes.root)}
@@ -38,8 +49,15 @@ const AddEmployeeForm = React.forwardRef<
 			ref={ref}
 		>
 			<PersonalDetailsFormSection />
-			<AddressDetailsFormSection />
 			<ContactDetailsFormSection />
+			<AddressDetailsFormSection
+				addressType="Residential"
+				onSamePostalAddressChange={handleSamePostalAddressChange}
+				samePostalAddress={samePostalAddress}
+			/>
+			{!samePostalAddress && (
+				<AddressDetailsFormSection addressType="Postal" />
+			)}
 		</form>
 	);
 });

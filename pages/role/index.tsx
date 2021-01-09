@@ -1,7 +1,6 @@
 import * as React from "react";
 
 // Icons
-import PersonAddRoundedIcon from "@material-ui/icons/PersonAddRounded";
 import AssignmentIndRoundedIcon from "@material-ui/icons/AssignmentIndRounded";
 
 // Next
@@ -12,9 +11,9 @@ import { useRouter } from "next/router";
 import PageToolbar from "../../components/common/PageToolbar.Component";
 import PromptedIconButton from "../../components/common/PromptedIconButton.Component";
 
-export interface EmployeeIndexPageProps {}
+export interface RoleIndexPageProps {}
 
-const EmployeeIndexPage: React.FC<EmployeeIndexPageProps> = () => {
+const RoleIndexPage: React.FC<RoleIndexPageProps> = () => {
 	// Router
 	const router = useRouter();
 
@@ -27,12 +26,6 @@ const EmployeeIndexPage: React.FC<EmployeeIndexPageProps> = () => {
 		<div>
 			<PageToolbar>
 				<PromptedIconButton
-					title="Add staff"
-					onClick={() => goTo("/employee/add")}
-				>
-					<PersonAddRoundedIcon />
-				</PromptedIconButton>
-				<PromptedIconButton
 					title="Create role"
 					onClick={() => goTo("/role/add")}
 				>
@@ -43,4 +36,4 @@ const EmployeeIndexPage: React.FC<EmployeeIndexPageProps> = () => {
 	);
 };
 
-export default EmployeeIndexPage;
+export default RoleIndexPage;
