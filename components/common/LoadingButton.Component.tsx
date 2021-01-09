@@ -7,7 +7,7 @@ import {
 	createStyles,
 	Theme,
 } from "@material-ui/core/styles";
-import { CircularProgress } from "@material-ui/core";
+import { Button, CircularProgress } from "@material-ui/core";
 
 // Components
 import RoundedButton, { RoundedButtonProps } from "./RoundedButton.Component";
@@ -32,35 +32,68 @@ export const styles = (theme: Theme) =>
 			display: "flex",
 			justifyContent: "center",
 		},
+		fitContent: { width: "fit-content !important" },
 	});
 
 export interface LoadingButtonProps
 	extends React.HTMLAttributes<HTMLDivElement> {
 	loading: boolean;
+	square?: boolean;
 }
 
 const LoadingButton = React.forwardRef<
 	HTMLDivElement,
 	LoadingButtonProps & RoundedButtonProps & WithStyles<typeof styles>
->(({ className, classes, text, loading, ...divProps }, ref) => {
-	return (
-		<div {...divProps} className={clsx(classes.root, className)} ref={ref}>
-			<RoundedButton
-				className={clsx(classes.root, className)}
-				text={text}
-				fullWidth
-				color="secondary"
-				variant="contained"
-				disabled={loading}
-			/>
-			{loading && (
-				<div className={classes.loaderContainer}>
-					<CircularProgress size={24} color="secondary" />
-				</div>
-			)}
-		</div>
-	);
-});
+>(
+	(
+		{
+			className,
+			classes,
+			text,
+			loading,
+			square,
+			fullWidth = true,
+			...divProps
+		},
+		ref
+	) => {
+		return (
+			<div
+				{...divProps}
+				className={clsx(
+					classes.root,
+					className,
+					!fullWidth && classes.fitContent
+				)}
+				ref={ref}
+			>
+				{square ? (
+					<Button
+						fullWidth={fullWidth}
+						color="secondary"
+						variant="contained"
+						disabled={loading}
+					>
+						{text}
+					</Button>
+				) : (
+					<RoundedButton
+						fullWidth={fullWidth}
+						text={text}
+						color="secondary"
+						variant="contained"
+						disabled={loading}
+					/>
+				)}
+				{loading && (
+					<div className={classes.loaderContainer}>
+						<CircularProgress size={24} color="secondary" />
+					</div>
+				)}
+			</div>
+		);
+	}
+);
 
 const StyledLoadingButton = withStyles(styles, {
 	classNamePrefix: generateClassName("LoadingButton"),

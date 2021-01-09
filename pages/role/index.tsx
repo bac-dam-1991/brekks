@@ -1,7 +1,7 @@
 import * as React from "react";
 
 // Icons
-import AssignmentIndRoundedIcon from "@material-ui/icons/AssignmentIndRounded";
+import AddCircleOutlineRoundedIcon from "@material-ui/icons/AddCircleOutlineRounded";
 
 // Next
 import { useRouter } from "next/router";
@@ -29,7 +29,7 @@ const RoleIndexPage: React.FC<RoleIndexPageProps> = () => {
 					title="Create role"
 					onClick={() => goTo("/role/add")}
 				>
-					<AssignmentIndRoundedIcon />
+					<AddCircleOutlineRoundedIcon />
 				</PromptedIconButton>
 			</PageToolbar>
 		</div>
