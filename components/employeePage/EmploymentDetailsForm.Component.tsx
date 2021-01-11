@@ -11,12 +11,12 @@ import {
 	Grid,
 	Paper,
 	PaperProps,
-	TextField,
 	ThemeProvider,
 	Typography,
+	Button,
 } from "@material-ui/core";
-import { KeyboardDatePicker } from "@material-ui/pickers";
 import { ParsableDate } from "@material-ui/pickers/constants/prop-types";
+import { KeyboardDatePicker } from "@material-ui/pickers";
 
 // NPM
 import clsx from "clsx";
@@ -25,14 +25,15 @@ import moment from "moment";
 // Utility
 import { generateClassName } from "../../domain/utility/utility";
 
-// Theme
-import { invertedTheme } from "../../domain/common/theme";
-
 // Components
 import GenericSelect from "../common/GenericSelect.Component";
+import StyledLoadingButton from "../common/LoadingButton.Component";
 
 // Classes
-import Person from "../../domain/common/classes/Person";
+import Employee from "../../domain/common/classes/Employee";
+
+// Theme
+import { invertedTheme } from "../../domain/common/theme";
 
 export const styles = (theme: Theme) =>
 	createStyles({
@@ -45,25 +46,34 @@ export const styles = (theme: Theme) =>
 		},
 	});
 
-export interface PersonalDetailsFormSectionProps extends PaperProps {}
+export interface ContactDetailsFormSectionProps extends PaperProps {}
 
-const PersonalDetailsFormSection = React.forwardRef<
+const ContactDetailsFormSection = React.forwardRef<
 	HTMLDivElement,
-	PersonalDetailsFormSectionProps & WithStyles<typeof styles>
+	ContactDetailsFormSectionProps & WithStyles<typeof styles>
 >(({ classes, className, ...paperProps }, ref) => {
 	// States
-	const [dob, setDob] = React.useState<ParsableDate>(moment().toDate());
-	const [gender, setGender] = React.useState<string>("");
+	const [jobRole, setJobRole] = React.useState<string>("");
+	const [employmentType, setEmploymentType] = React.useState<string>("");
+	const [startDate, setStartDate] = React.useState<ParsableDate>(
+		moment().toDate()
+	);
 
 	// Handlers
-	const handleDobChange = (date: moment.Moment) => {
-		setDob(date.toDate());
-	};
-
-	const handleGenderChange = (
+	const handleJobRoleChange = (
 		event: React.ChangeEvent<{ value: unknown }>
 	) => {
-		setGender(event.target.value as string);
+		setJobRole(event.target.value as string);
+	};
+
+	const handleEmploymentTypeChange = (
+		event: React.ChangeEvent<{ value: unknown }>
+	) => {
+		setEmploymentType(event.target.value as string);
+	};
+
+	const handleStartDateChange = (date: moment.Moment) => {
+		setStartDate(date.toDate());
 	};
 
 	return (
@@ -77,31 +87,23 @@ const PersonalDetailsFormSection = React.forwardRef<
 			<Grid container spacing={2}>
 				<Grid item xs={12}>
 					<Typography variant="h6" color="secondary">
-						<strong>Personal details</strong>
+						<strong>Employment details</strong>
 					</Typography>
 				</Grid>
 				<Grid item xs={12} sm={4}>
-					<TextField
-						variant="outlined"
-						color="secondary"
-						label="Given name"
-						fullWidth
+					<GenericSelect
+						value={jobRole}
+						onValueChange={handleJobRoleChange}
+						valuesList={[]}
+						selectLabel="Job role"
 					/>
 				</Grid>
 				<Grid item xs={12} sm={4}>
-					<TextField
-						variant="outlined"
-						color="secondary"
-						label="Middle name"
-						fullWidth
-					/>
-				</Grid>
-				<Grid item xs={12} sm={4}>
-					<TextField
-						variant="outlined"
-						color="secondary"
-						label="Family name"
-						fullWidth
+					<GenericSelect
+						value={employmentType}
+						onValueChange={handleEmploymentTypeChange}
+						valuesList={Employee.getEmploymentTypes()}
+						selectLabel="Employment type"
 					/>
 				</Grid>
 				<Grid item xs={12} sm={4}>
@@ -110,22 +112,13 @@ const PersonalDetailsFormSection = React.forwardRef<
 							inputVariant="outlined"
 							format="YYYY/MM/DD"
 							fullWidth
-							disableFuture
-							value={dob}
-							onChange={handleDobChange}
+							value={startDate}
+							onChange={handleStartDateChange}
 							views={["year", "month", "date"]}
 							openTo={"year"}
-							label="Date of birth"
+							label="Start date"
 						/>
 					</ThemeProvider>
-				</Grid>
-				<Grid item xs={12} sm={4}>
-					<GenericSelect
-						selectLabel="Gender"
-						value={gender}
-						onValueChange={handleGenderChange}
-						valuesList={Person.getSelectableGenders()}
-					/>
 				</Grid>
 			</Grid>
 		</Paper>
@@ -133,5 +126,5 @@ const PersonalDetailsFormSection = React.forwardRef<
 });
 
 export default withStyles(styles, {
-	classNamePrefix: generateClassName("PersonalDetailsFormSection"),
-})(PersonalDetailsFormSection);
+	classNamePrefix: generateClassName("ContactDetailsFormSection"),
+})(ContactDetailsFormSection);

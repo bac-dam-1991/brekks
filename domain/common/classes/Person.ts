@@ -1,5 +1,6 @@
 import {
 	generateSelectableItem,
+	generateSelectableLists,
 	sortAlphabetically,
 } from "../../utility/utility";
 import ISelectableItem from "../interfaces/ISelectableItem";
@@ -31,34 +32,14 @@ export default class Person {
 	];
 
 	public static getSelectableGenders(): ISelectableItem[] {
-		const array: ISelectableItem[] = [];
-
-		Person.Genders.forEach((gender: string) => {
-			array.push(generateSelectableItem(gender));
-		});
-
-		return array;
+		return generateSelectableLists(Person.Genders);
 	}
 
 	public static getSelectableStates(): ISelectableItem[] {
-		const array: ISelectableItem[] = [];
-
-		Person.States.sort(sortAlphabetically).forEach((gender: string) => {
-			array.push(generateSelectableItem(gender));
-		});
-
-		return array;
+		return generateSelectableLists(Person.States);
 	}
 
 	public static getSelectablePreferredContactMethods(): ISelectableItem[] {
-		const array: ISelectableItem[] = [];
-
-		Person.PreferredContactMethods.sort(sortAlphabetically).forEach(
-			(gender: string) => {
-				array.push(generateSelectableItem(gender));
-			}
-		);
-
-		return array;
+		return generateSelectableLists(Person.PreferredContactMethods);
 	}
 }

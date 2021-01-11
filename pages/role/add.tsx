@@ -7,26 +7,78 @@ import { useRouter } from "next/router";
 import Section from "../../components/common/Section.Component";
 import SectionHeader from "../../components/common/SectionHeader.Component";
 import AddRoleForm from "../../components/rolePage/AddRoleForm.Component";
+import StyledLoadingButton from "../../components/common/LoadingButton.Component";
+
+// MUI
+import { Grid, Button } from "@material-ui/core";
+import {
+	createStyles,
+	Theme,
+	WithStyles,
+	withStyles,
+} from "@material-ui/core/styles";
+
+// Utility
+import { generateClassName } from "../../domain/utility/utility";
+
+export const styles = (theme: Theme) =>
+	createStyles({
+		buttonContainer: {
+			display: "flex",
+			flexDirection: "row-reverse",
+		},
+		addButton: {
+			marginLeft: theme.spacing(1),
+		},
+	});
 
 export interface RoleIndexPageProps {}
 
-const RoleIndexPage: React.FC<RoleIndexPageProps> = () => {
+const RoleIndexPage: React.FC<
+	RoleIndexPageProps & WithStyles<typeof styles>
+> = ({ classes }) => {
 	// Router
 	const router = useRouter();
 
-	// Handlers
-	const goTo = (path: string) => {
-		router.push(path);
+	// States
+	const [loading, setLoading] = React.useState<boolean>(false);
+
+	// Handler
+	const handleAddRole = () => {
+		setLoading(true);
+	};
+
+	const handleCancel = () => {
+		router.push("/role");
 	};
 
 	return (
 		<div>
 			<Section>
 				<SectionHeader text="Add role" color="primary" />
-				<AddRoleForm />
+				<Grid container spacing={2}>
+					<Grid item xs={12}>
+						<AddRoleForm />
+					</Grid>
+					<Grid item xs={12}>
+						<div className={classes.buttonContainer}>
+							<StyledLoadingButton
+								text="Create role"
+								loading={loading}
+								fullWidth={false}
+								onClick={handleAddRole}
+								square
+								className={classes.addButton}
+							/>
+							<Button onClick={handleCancel}>Cancel</Button>
+						</div>
+					</Grid>
+				</Grid>
 			</Section>
 		</div>
 	);
 };
 
-export default RoleIndexPage;
+export default withStyles(styles, {
+	classNamePrefix: generateClassName("RoleIndexPage"),
+})(RoleIndexPage);

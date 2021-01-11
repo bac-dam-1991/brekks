@@ -21,6 +21,18 @@ export const generateSelectableItem = (value: string): ISelectableItem => {
 	return { key, value, text: value };
 };
 
+export const generateSelectableLists = (
+	values: string[]
+): ISelectableItem[] => {
+	const list: ISelectableItem[] = [];
+
+	values
+		.sort(sortAlphabetically)
+		.forEach((val: string) => list.push(generateSelectableItem(val)));
+
+	return list;
+};
+
 export const sortAlphabetically = (a: string, b: string): number => {
 	if (a > b) return 1;
 	if (b > a) return -1;
