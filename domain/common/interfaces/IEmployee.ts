@@ -4,8 +4,10 @@ import GenderType from "../types/GenderType";
 // Interfaces
 import IAddress, { InitialAddressState } from "./IAddress";
 import IContactDetails, { InitialContactDetails } from "./IContactDetails";
+import IOrganisation, { InitialOrganisationState } from "./IOrganisation";
 
 export default interface IEmployee {
+	employeeId: string;
 	title: string;
 	givenName: string;
 	middleName: string;
@@ -16,17 +18,20 @@ export default interface IEmployee {
 	postalAddress: IAddress | null;
 	role: string;
 	gender: GenderType;
+	primaryPlaceOfEmployment: IOrganisation;
 }
 
 export const InitialEmployeeState: IEmployee = {
-	title: "Mr",
-	givenName: "John",
-	middleName: "Thomas",
-	familyName: "Newuser",
-	dob: "1980-01-01",
+	employeeId: "",
+	title: "",
+	givenName: "",
+	middleName: "",
+	familyName: "",
+	dob: "",
 	contactDetails: InitialContactDetails,
 	residentialAddress: InitialAddressState,
 	postalAddress: null,
-	role: "Pharmacist",
-	gender: "Male",
+	role: "",
+	gender: "Undisclosed",
+	primaryPlaceOfEmployment: InitialOrganisationState,
 };

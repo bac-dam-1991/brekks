@@ -48,6 +48,7 @@ const GenericSelect = React.forwardRef<
 			className,
 			selectLabel,
 			value,
+			color = "secondary",
 			onValueChange,
 			valuesList,
 			...formControlProps
@@ -65,7 +66,7 @@ const GenericSelect = React.forwardRef<
 				ref={ref}
 				fullWidth
 			>
-				<InputLabel id={label} color="secondary">
+				<InputLabel id={label} color={color}>
 					{selectLabel}
 				</InputLabel>
 				<Select
@@ -76,7 +77,7 @@ const GenericSelect = React.forwardRef<
 					native
 					label={selectLabel}
 					inputProps={{ name: selectLabel, id: id }}
-					color="secondary"
+					color={color}
 				>
 					{valuesList.map((item: ISelectableItem) => (
 						<option value={item.value} key={item.key}>

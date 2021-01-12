@@ -5,13 +5,15 @@ export default interface IContactDetails {
 	mobile: string;
 	fax: string;
 	email: string;
+	business: string;
 	preferredContactMethod: PreferredContactMethodType;
 }
 
 export const InitialContactDetails: IContactDetails = {
-	home: "0391234567",
-	mobile: "0401123456",
-	fax: "0391234000",
-	email: "john.newuser.2020@gmail.com",
+	home: "",
+	mobile: "",
+	fax: "",
+	email: "",
 	preferredContactMethod: "Email",
+	business: "",
 };

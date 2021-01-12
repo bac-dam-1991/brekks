@@ -29,7 +29,10 @@ const LocationIndexPage: React.FC<LocationIndexPageProps> = () => {
 	return (
 		<div>
 			<PageToolbar>
-				<PromptedIconButton title="Add store">
+				<PromptedIconButton
+					title="Add location"
+					onClick={() => goTo("/location/add")}
+				>
 					<AddCircleOutlineRoundedIcon />
 				</PromptedIconButton>
 				<PromptedIconButton

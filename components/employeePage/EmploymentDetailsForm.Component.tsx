@@ -13,7 +13,6 @@ import {
 	PaperProps,
 	ThemeProvider,
 	Typography,
-	Button,
 } from "@material-ui/core";
 import { ParsableDate } from "@material-ui/pickers/constants/prop-types";
 import { KeyboardDatePicker } from "@material-ui/pickers";
@@ -27,7 +26,6 @@ import { generateClassName } from "../../domain/utility/utility";
 
 // Components
 import GenericSelect from "../common/GenericSelect.Component";
-import StyledLoadingButton from "../common/LoadingButton.Component";
 
 // Classes
 import Employee from "../../domain/common/classes/Employee";
@@ -55,6 +53,10 @@ const ContactDetailsFormSection = React.forwardRef<
 	// States
 	const [jobRole, setJobRole] = React.useState<string>("");
 	const [employmentType, setEmploymentType] = React.useState<string>("");
+	const [
+		primaryPlaceOfEmployment,
+		setPrimaryPlaceOfEmployment,
+	] = React.useState<string>("");
 	const [startDate, setStartDate] = React.useState<ParsableDate>(
 		moment().toDate()
 	);
@@ -76,6 +78,12 @@ const ContactDetailsFormSection = React.forwardRef<
 		setStartDate(date.toDate());
 	};
 
+	const handlePrimaryPlaceOfEmploymentChange = (
+		event: React.ChangeEvent<{ value: unknown }>
+	) => {
+		setPrimaryPlaceOfEmployment(event.target.value as string);
+	};
+
 	return (
 		<Paper
 			square
@@ -89,6 +97,14 @@ const ContactDetailsFormSection = React.forwardRef<
 					<Typography variant="h6" color="secondary">
 						<strong>Employment details</strong>
 					</Typography>
+				</Grid>
+				<Grid item xs={12}>
+					<GenericSelect
+						value={primaryPlaceOfEmployment}
+						onValueChange={handlePrimaryPlaceOfEmploymentChange}
+						valuesList={[]}
+						selectLabel="Primary place of employment"
+					/>
 				</Grid>
 				<Grid item xs={12} sm={4}>
 					<GenericSelect

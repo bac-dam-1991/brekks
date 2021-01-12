@@ -16,8 +16,8 @@ import { generateClassName } from "../../domain/utility/utility";
 
 // Components
 import PersonalDetailsFormSection from "./PersonalDetailsFormSection.Component";
-import ContactDetailsFormSection from "./ContactDetailsFormSection.Component";
-import AddressDetailsFormSection from "./AddressDetailsFormSection.Component";
+import ContactDetailsFormSection from "../common/ContactDetailsFormSection.Component";
+import AddressDetailsFormSection from "../common/AddressDetailsFormSection.Component";
 import EmploymentDetailsForm from "./EmploymentDetailsForm.Component";
 
 export const styles = (theme: Theme) =>
@@ -50,7 +50,7 @@ const AddEmployeeForm = React.forwardRef<
 			ref={ref}
 		>
 			<PersonalDetailsFormSection />
-			<ContactDetailsFormSection />
+			<ContactDetailsFormSection type="Personal" />
 			<AddressDetailsFormSection
 				addressType="Residential"
 				onSamePostalAddressChange={handleSamePostalAddressChange}

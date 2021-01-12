@@ -17,6 +17,8 @@ export interface ICalendarContext {
 	color: ThemeColor;
 	calendarData: ICalendarData;
 	handleCalendarDataChange: (newData: ICalendarData) => void;
+	addShiftDialogOpen: boolean;
+	handleAddShiftDialogOpenChange: (val: boolean) => void;
 }
 
 export const CalendarContext = React.createContext<ICalendarContext>({
@@ -27,6 +29,8 @@ export const CalendarContext = React.createContext<ICalendarContext>({
 	color: "default",
 	calendarData: InitialCalendarDataState,
 	handleCalendarDataChange: (newData: ICalendarData) => {},
+	addShiftDialogOpen: false,
+	handleAddShiftDialogOpenChange: (val: boolean) => {},
 });
 
 export interface CalendarManagerProps {
@@ -46,6 +50,9 @@ const CalendarManager: React.FC<CalendarManagerProps> = ({
 	const [calendarData, setCalendarData] = React.useState<ICalendarData>(
 		InitialCalendarDataState
 	);
+	const [addShiftDialogOpen, setAddShiftDialogOpen] = React.useState<boolean>(
+		false
+	);
 
 	// Handler
 	const toggleFirstDayOfWeek = () => {
@@ -62,6 +69,10 @@ const CalendarManager: React.FC<CalendarManagerProps> = ({
 		setCalendarData(newData);
 	};
 
+	const handleAddShiftDialogOpenChange = (val: boolean) => {
+		setAddShiftDialogOpen(val);
+	};
+
 	return (
 		<CalendarContext.Provider
 			value={{
@@ -72,6 +83,8 @@ const CalendarManager: React.FC<CalendarManagerProps> = ({
 				color,
 				calendarData,
 				handleCalendarDataChange,
+				addShiftDialogOpen,
+				handleAddShiftDialogOpenChange,
 			}}
 		>
 			{children}

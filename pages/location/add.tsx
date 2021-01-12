@@ -3,8 +3,8 @@ import * as React from "react";
 // Components
 import Section from "../../components/common/Section.Component";
 import SectionHeader from "../../components/common/SectionHeader.Component";
-import AddEmployeeForm from "../../components/employeePage/AddEmployeeForm.Component";
 import StyledLoadingButton from "../../components/common/LoadingButton.Component";
+import AddLocationForm from "../../components/locationPage/AddLocationForm.Component";
 
 // MUI
 import { Grid, Button } from "@material-ui/core";
@@ -30,10 +30,10 @@ export const styles = (theme: Theme) =>
 		},
 	});
 
-export interface EmployeeAddPageProps {}
+export interface LocationAddPageProps {}
 
-const EmployeeAddPage: React.FC<
-	EmployeeAddPageProps & WithStyles<typeof styles>
+const LocationAddPage: React.FC<
+	LocationAddPageProps & WithStyles<typeof styles>
 > = ({ classes }) => {
 	// Router
 	const router = useRouter();
@@ -42,28 +42,28 @@ const EmployeeAddPage: React.FC<
 	const [loading, setLoading] = React.useState<boolean>(false);
 
 	// Handler
-	const handleAddEmployee = () => {
+	const handleAddLocation = () => {
 		setLoading(true);
 	};
 
 	const handleCancel = () => {
-		router.push("/employee");
+		router.push("/location");
 	};
 	return (
 		<div>
 			<Section>
-				<SectionHeader text="Add staff" color="primary" />
+				<SectionHeader text="Add location" color="primary" />
 				<Grid container spacing={2}>
 					<Grid item xs={12}>
-						<AddEmployeeForm />
+						<AddLocationForm />
 					</Grid>
 					<Grid item xs={12}>
 						<div className={classes.buttonContainer}>
 							<StyledLoadingButton
-								text="Add employee"
+								text="Add location"
 								loading={loading}
 								fullWidth={false}
-								onClick={handleAddEmployee}
+								onClick={handleAddLocation}
 								square
 								className={classes.addButton}
 							/>
@@ -77,5 +77,5 @@ const EmployeeAddPage: React.FC<
 };
 
 export default withStyles(styles, {
-	classNamePrefix: generateClassName("EmployeeAddPage"),
-})(EmployeeAddPage);
+	classNamePrefix: generateClassName("LocationAddPage"),
+})(LocationAddPage);

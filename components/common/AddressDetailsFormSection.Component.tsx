@@ -22,8 +22,8 @@ import clsx from "clsx";
 import { generateClassName } from "../../domain/utility/utility";
 
 // Components
-import GenericSelect from "../common/GenericSelect.Component";
-import GenericCheckbox from "../common/GenericCheckbox.Component";
+import GenericSelect from "./GenericSelect.Component";
+import GenericCheckbox from "./GenericCheckbox.Component";
 
 // Classes
 import Person from "../../domain/common/classes/Person";

@@ -22,10 +22,13 @@ import clsx from "clsx";
 import { generateClassName } from "../../domain/utility/utility";
 
 // Components
-import GenericSelect from "../common/GenericSelect.Component";
+import GenericSelect from "./GenericSelect.Component";
 
 // Classes
 import Person from "../../domain/common/classes/Person";
+
+//Type
+import ContactDetailsType from "../../domain/common/types/ContactDetailsType";
 
 export const styles = (theme: Theme) =>
 	createStyles({
@@ -38,12 +41,14 @@ export const styles = (theme: Theme) =>
 		},
 	});
 
-export interface ContactDetailsFormSectionProps extends PaperProps {}
+export interface ContactDetailsFormSectionProps extends PaperProps {
+	type: ContactDetailsType;
+}
 
 const ContactDetailsFormSection = React.forwardRef<
 	HTMLDivElement,
 	ContactDetailsFormSectionProps & WithStyles<typeof styles>
->(({ classes, className, ...paperProps }, ref) => {
+>(({ classes, className, type, ...paperProps }, ref) => {
 	// States
 	const [
 		preferredContactMethod,
@@ -71,22 +76,38 @@ const ContactDetailsFormSection = React.forwardRef<
 						<strong>Contact details</strong>
 					</Typography>
 				</Grid>
-				<Grid item xs={12} sm={4}>
-					<TextField
-						variant="outlined"
-						color="secondary"
-						label="Mobile"
-						fullWidth
-					/>
-				</Grid>
-				<Grid item xs={12} sm={4}>
-					<TextField
-						variant="outlined"
-						color="secondary"
-						label="Home"
-						fullWidth
-					/>
-				</Grid>
+				{type === "Personal" && (
+					<React.Fragment>
+						<Grid item xs={12} sm={4}>
+							<TextField
+								variant="outlined"
+								color="secondary"
+								label="Mobile"
+								fullWidth
+							/>
+						</Grid>
+						<Grid item xs={12} sm={4}>
+							<TextField
+								variant="outlined"
+								color="secondary"
+								label="Home"
+								fullWidth
+							/>
+						</Grid>
+					</React.Fragment>
+				)}
+
+				{type === "Business" && (
+					<Grid item xs={12} sm={4}>
+						<TextField
+							variant="outlined"
+							color="secondary"
+							label="Business"
+							fullWidth
+						/>
+					</Grid>
+				)}
+
 				<Grid item xs={12} sm={4}>
 					<TextField
 						variant="outlined"
@@ -103,14 +124,16 @@ const ContactDetailsFormSection = React.forwardRef<
 						fullWidth
 					/>
 				</Grid>
-				<Grid item xs={12} sm={4}>
-					<GenericSelect
-						selectLabel="Preferred contact method"
-						value={preferredContactMethod}
-						onValueChange={handlePreferredContactMethodChange}
-						valuesList={Person.getSelectablePreferredContactMethods()}
-					/>
-				</Grid>
+				{type === "Personal" && (
+					<Grid item xs={12} sm={4}>
+						<GenericSelect
+							selectLabel="Preferred contact method"
+							value={preferredContactMethod}
+							onValueChange={handlePreferredContactMethodChange}
+							valuesList={Person.getSelectablePreferredContactMethods()}
+						/>
+					</Grid>
+				)}
 			</Grid>
 		</Paper>
 	);

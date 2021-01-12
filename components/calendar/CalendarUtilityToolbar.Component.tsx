@@ -51,6 +51,7 @@ const CalendarUtilityToolbar: React.FC<
 		toggleExpandAll,
 		toggleFirstDayOfWeek,
 		expandAll,
+		handleAddShiftDialogOpenChange,
 	} = useCalendarManager();
 
 	return (
@@ -63,7 +64,10 @@ const CalendarUtilityToolbar: React.FC<
 			<PromptedIconButton title="Add staff">
 				<PersonAddRoundedIcon />
 			</PromptedIconButton>
-			<PromptedIconButton title="Add shift">
+			<PromptedIconButton
+				title="Add shift"
+				onClick={() => handleAddShiftDialogOpenChange(true)}
+			>
 				<AddAlarmRoundedIcon />
 			</PromptedIconButton>
 			<PromptedButton

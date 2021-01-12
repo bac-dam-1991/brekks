@@ -28,6 +28,7 @@ import Calendar from "../../domain/common/classes/Calendar";
 // Components
 import CalendarPanelHeading from "./CalendarPanelHeading.Component";
 import { AnimatedCalendarDayPanel } from "./CalendarDayPanel.Component";
+import AddShiftDialog from "../common/AddShiftDialog.Component";
 
 export const styles = (theme: Theme) =>
 	createStyles({
@@ -54,7 +55,12 @@ const CalendarGrid = React.forwardRef<
 	const [calendarDays, setCalendarDays] = React.useState<ICalendarDay[]>([]);
 
 	// Contexts
-	const { firstDayOfWeek, calendarData } = useCalendarManager();
+	const {
+		firstDayOfWeek,
+		calendarData,
+		handleAddShiftDialogOpenChange,
+		addShiftDialogOpen,
+	} = useCalendarManager();
 
 	// Effects
 	React.useEffect(() => {
@@ -100,6 +106,10 @@ const CalendarGrid = React.forwardRef<
 					style={{ height, opacity }}
 				/>
 			))}
+			<AddShiftDialog
+				open={addShiftDialogOpen}
+				onDialogClose={() => handleAddShiftDialogOpenChange(false)}
+			/>
 		</div>
 	);
 });
