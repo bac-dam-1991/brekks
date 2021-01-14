@@ -34,6 +34,8 @@ import { generateClassName } from "../../domain/utility/utility";
 import { invertedTheme } from "../../domain/common/theme";
 import { KeyboardDatePicker, KeyboardTimePicker } from "@material-ui/pickers";
 import { ParsableDate } from "@material-ui/pickers/constants/prop-types";
+import Shift from "../../domain/common/classes/Shift";
+import Break from "../../domain/common/classes/Break";
 
 export const styles = (theme: Theme) =>
 	createStyles({
@@ -61,8 +63,12 @@ const AddShiftDialog = React.forwardRef<
 		moment().toDate()
 	);
 	const [endTime, setEndTime] = React.useState<ParsableDate>(
-		moment().add(3, "hours").toDate()
+		moment().add(Shift.minDuration, "minutes").toDate()
 	);
+	const [shiftDuration, setShiftDuration] = React.useState<number>(
+		Shift.minDuration
+	);
+	const [breakDuration, setBreakDuration] = React.useState<string>("");
 
 	// Theme
 	const theme = useTheme();
@@ -73,6 +79,12 @@ const AddShiftDialog = React.forwardRef<
 		event: React.ChangeEvent<{ value: unknown }>
 	) => {
 		setEmployeeId(event.target.value as string);
+	};
+
+	const handleBreakDurationChange = (
+		event: React.ChangeEvent<{ value: unknown }>
+	) => {
+		setBreakDuration(event.target.value as string);
 	};
 
 	const handleStartTimeChange = (date: moment.Moment) => {
@@ -86,6 +98,16 @@ const AddShiftDialog = React.forwardRef<
 	const handleAddShift = () => {
 		setLoading(true);
 	};
+
+	// Use effects
+	React.useEffect(() => {
+		const shiftDuration: number = moment(endTime).diff(
+			moment(startTime),
+			"minutes"
+		);
+
+		setShiftDuration(shiftDuration);
+	}, [startTime, endTime]);
 
 	return (
 		<Dialog
@@ -115,7 +137,7 @@ const AddShiftDialog = React.forwardRef<
 								color="primary"
 							/>
 						</Grid>
-						<Grid item xs={12}>
+						<Grid item xs={12} sm={6}>
 							<KeyboardDatePicker
 								format="DD/MM/YYYY"
 								value={startTime}
@@ -126,7 +148,7 @@ const AddShiftDialog = React.forwardRef<
 								autoOk
 							/>
 						</Grid>
-						<Grid item xs={12}>
+						<Grid item xs={12} sm={6}>
 							<KeyboardTimePicker
 								value={startTime}
 								onChange={handleStartTimeChange}
@@ -134,9 +156,10 @@ const AddShiftDialog = React.forwardRef<
 								fullWidth
 								inputVariant="outlined"
 								autoOk
+								minutesStep={15}
 							/>
 						</Grid>
-						<Grid item xs={12}>
+						<Grid item xs={12} sm={6}>
 							<KeyboardDatePicker
 								format="DD/MM/YYYY"
 								value={endTime}
@@ -147,7 +170,7 @@ const AddShiftDialog = React.forwardRef<
 								autoOk
 							/>
 						</Grid>
-						<Grid item xs={12}>
+						<Grid item xs={12} sm={6}>
 							<KeyboardTimePicker
 								value={endTime}
 								onChange={handleEndTimeChange}
@@ -155,8 +178,46 @@ const AddShiftDialog = React.forwardRef<
 								fullWidth
 								inputVariant="outlined"
 								autoOk
+								minutesStep={15}
 							/>
 						</Grid>
+						{shiftDuration > 300 && (
+							<React.Fragment>
+								<Grid item xs={12} sm={4}>
+									<KeyboardDatePicker
+										format="DD/MM/YYYY"
+										value={endTime}
+										onChange={handleEndTimeChange}
+										label="Break date"
+										fullWidth
+										inputVariant="outlined"
+										autoOk
+									/>
+								</Grid>
+								<Grid item xs={12} sm={4}>
+									<KeyboardTimePicker
+										value={endTime}
+										onChange={handleEndTimeChange}
+										label="Break time"
+										fullWidth
+										inputVariant="outlined"
+										autoOk
+										minutesStep={15}
+									/>
+								</Grid>
+								<Grid item xs={12} sm={4}>
+									<GenericSelect
+										value={breakDuration}
+										onValueChange={
+											handleBreakDurationChange
+										}
+										valuesList={Break.getSelectableBreakDurations()}
+										selectLabel="Break duration"
+										color="primary"
+									/>
+								</Grid>
+							</React.Fragment>
+						)}
 					</Grid>
 				</ThemeProvider>
 			</DialogContent>

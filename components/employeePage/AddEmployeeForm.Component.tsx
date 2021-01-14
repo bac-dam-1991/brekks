@@ -18,7 +18,7 @@ import { generateClassName } from "../../domain/utility/utility";
 import PersonalDetailsFormSection from "./PersonalDetailsFormSection.Component";
 import ContactDetailsFormSection from "../common/ContactDetailsFormSection.Component";
 import AddressDetailsFormSection from "../common/AddressDetailsFormSection.Component";
-import EmploymentDetailsForm from "./EmploymentDetailsForm.Component";
+import EmploymentDetailsFormSection from "./EmploymentDetailsFormSection.Component";
 
 export const styles = (theme: Theme) =>
 	createStyles({
@@ -59,7 +59,7 @@ const AddEmployeeForm = React.forwardRef<
 			{!samePostalAddress && (
 				<AddressDetailsFormSection addressType="Postal" />
 			)}
-			<EmploymentDetailsForm />
+			<EmploymentDetailsFormSection />
 		</form>
 	);
 });

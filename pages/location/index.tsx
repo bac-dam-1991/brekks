@@ -9,6 +9,7 @@ import PageToolbar from "../../components/common/PageToolbar.Component";
 // Icons
 import AddCircleOutlineRoundedIcon from "@material-ui/icons/AddCircleOutlineRounded";
 import AssignmentIndRoundedIcon from "@material-ui/icons/AssignmentIndRounded";
+import EmojiFoodBeverageRoundedIcon from "@material-ui/icons/EmojiFoodBeverageRounded";
 
 // Components
 import PromptedIconButton from "../../components/common/PromptedIconButton.Component";
@@ -40,6 +41,12 @@ const LocationIndexPage: React.FC<LocationIndexPageProps> = () => {
 					onClick={() => goTo("/role/add")}
 				>
 					<AssignmentIndRoundedIcon />
+				</PromptedIconButton>
+				<PromptedIconButton
+					title="Setup break schedule"
+					onClick={() => goTo("/break/add")}
+				>
+					<EmojiFoodBeverageRoundedIcon />
 				</PromptedIconButton>
 			</PageToolbar>
 		</div>

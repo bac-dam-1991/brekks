@@ -16,19 +16,29 @@ export const generateSelectAttributes = (name: string): string[] => {
 	];
 };
 
-export const generateSelectableItem = (value: string): ISelectableItem => {
+export const generateSelectableItem = (
+	value: string,
+	textSuffix?: string
+): ISelectableItem => {
 	const key: string = value.toLowerCase().replace(new RegExp(" ", "g"), "-");
-	return { key, value, text: value };
+	return {
+		key,
+		value,
+		text: !!textSuffix ? value + " " + textSuffix : value,
+	};
 };
 
 export const generateSelectableLists = (
-	values: string[]
+	values: string[],
+	textSuffix?: string
 ): ISelectableItem[] => {
 	const list: ISelectableItem[] = [];
 
 	values
 		.sort(sortAlphabetically)
-		.forEach((val: string) => list.push(generateSelectableItem(val)));
+		.forEach((val: string) =>
+			list.push(generateSelectableItem(val, textSuffix))
+		);
 
 	return list;
 };

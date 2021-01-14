@@ -44,11 +44,11 @@ export const styles = (theme: Theme) =>
 		},
 	});
 
-export interface ContactDetailsFormSectionProps extends PaperProps {}
+export interface EmploymentDetailsFormSectionProps extends PaperProps {}
 
-const ContactDetailsFormSection = React.forwardRef<
+const EmploymentDetailsFormSection = React.forwardRef<
 	HTMLDivElement,
-	ContactDetailsFormSectionProps & WithStyles<typeof styles>
+	EmploymentDetailsFormSectionProps & WithStyles<typeof styles>
 >(({ classes, className, ...paperProps }, ref) => {
 	// States
 	const [jobRole, setJobRole] = React.useState<string>("");
@@ -142,5 +142,5 @@ const ContactDetailsFormSection = React.forwardRef<
 });
 
 export default withStyles(styles, {
-	classNamePrefix: generateClassName("ContactDetailsFormSection"),
-})(ContactDetailsFormSection);
+	classNamePrefix: generateClassName("EmploymentDetailsFormSection"),
+})(EmploymentDetailsFormSection);
