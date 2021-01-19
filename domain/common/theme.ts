@@ -3,10 +3,10 @@ import { createMuiTheme } from "@material-ui/core/styles";
 const theme = createMuiTheme({
 	palette: {
 		primary: {
-			main: "#DB6C79",
+			main: "#335C81",
 		},
 		secondary: {
-			main: "#335C81",
+			main: "#DB6C79",
 		},
 	},
 });
@@ -14,10 +14,10 @@ const theme = createMuiTheme({
 export const invertedTheme = createMuiTheme({
 	palette: {
 		primary: {
-			main: "#335C81",
+			main: "#DB6C79",
 		},
 		secondary: {
-			main: "#DB6C79",
+			main: "#335C81",
 		},
 	},
 });

@@ -48,7 +48,7 @@ const GenericSelect = React.forwardRef<
 			className,
 			selectLabel,
 			value,
-			color = "secondary",
+			color = "primary",
 			onValueChange,
 			valuesList,
 			...formControlProps

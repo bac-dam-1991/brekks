@@ -28,6 +28,10 @@ import clsx from "clsx";
 
 // Components
 import RoundedButton from "./RoundedButton.Component";
+import SideDrawer from "./SideDrawer.Component";
+
+// Context
+import { useNavigation } from "../../contexts/NavigationManager.Context";
 
 export interface NavbarProps extends AppBarProps {}
 
@@ -49,12 +53,15 @@ const Navbar = React.forwardRef<
 	HTMLDivElement,
 	NavbarProps & WithStyles<typeof styles>
 >(({ classes, className }, ref) => {
+	// Contexts
+	const { handleSideDrawerOpenChange } = useNavigation();
+
 	return (
 		<React.Fragment>
 			<AppBar
 				ref={ref}
 				className={clsx(classes.root, className)}
-				color="primary"
+				color="secondary"
 			>
 				<Toolbar variant="dense">
 					<Link href="/">
@@ -67,16 +74,20 @@ const Navbar = React.forwardRef<
 							<RoundedButton
 								text="Sign up"
 								variant="contained"
-								color="secondary"
+								color="primary"
 							/>
 						</Link>
 					</div>
-					<IconButton color="inherit">
+					<IconButton
+						color="inherit"
+						onClick={() => handleSideDrawerOpenChange(true)}
+					>
 						<MenuRoundedIcon />
 					</IconButton>
 				</Toolbar>
 			</AppBar>
 			<Toolbar variant="dense" />
+			<SideDrawer />
 		</React.Fragment>
 	);
 });

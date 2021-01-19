@@ -70,7 +70,7 @@ const LoadingButton = React.forwardRef<
 				{square ? (
 					<Button
 						fullWidth={fullWidth}
-						color="secondary"
+						color="primary"
 						variant="contained"
 						disabled={loading}
 					>
@@ -80,14 +80,14 @@ const LoadingButton = React.forwardRef<
 					<RoundedButton
 						fullWidth={fullWidth}
 						text={text}
-						color="secondary"
+						color="primary"
 						variant="contained"
 						disabled={loading}
 					/>
 				)}
 				{loading && (
 					<div className={classes.loaderContainer}>
-						<CircularProgress size={24} color="secondary" />
+						<CircularProgress size={24} color="primary" />
 					</div>
 				)}
 			</div>

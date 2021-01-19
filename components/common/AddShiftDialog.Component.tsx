@@ -121,105 +121,96 @@ const AddShiftDialog = React.forwardRef<
 				<Typography variant="h6">Add shift</Typography>
 			</DialogTitle>
 			<DialogContent dividers>
-				<ThemeProvider theme={invertedTheme}>
-					<Grid
-						container
-						spacing={2}
-						className={classes.dialogContent}
-					>
-						<Grid item xs={12}>
-							<GenericSelect
-								value={employeeId}
-								onValueChange={handleEmployeeChange}
-								valuesList={[]}
-								selectLabel="Select employee"
-								fullWidth
-								color="primary"
-							/>
-						</Grid>
-						<Grid item xs={12} sm={6}>
-							<KeyboardDatePicker
-								format="DD/MM/YYYY"
-								value={startTime}
-								onChange={handleStartTimeChange}
-								label="Start date"
-								fullWidth
-								inputVariant="outlined"
-								autoOk
-							/>
-						</Grid>
-						<Grid item xs={12} sm={6}>
-							<KeyboardTimePicker
-								value={startTime}
-								onChange={handleStartTimeChange}
-								label="Start time"
-								fullWidth
-								inputVariant="outlined"
-								autoOk
-								minutesStep={15}
-							/>
-						</Grid>
-						<Grid item xs={12} sm={6}>
-							<KeyboardDatePicker
-								format="DD/MM/YYYY"
-								value={endTime}
-								onChange={handleEndTimeChange}
-								label="End date"
-								fullWidth
-								inputVariant="outlined"
-								autoOk
-							/>
-						</Grid>
-						<Grid item xs={12} sm={6}>
-							<KeyboardTimePicker
-								value={endTime}
-								onChange={handleEndTimeChange}
-								label="End time"
-								fullWidth
-								inputVariant="outlined"
-								autoOk
-								minutesStep={15}
-							/>
-						</Grid>
-						{shiftDuration > 300 && (
-							<React.Fragment>
-								<Grid item xs={12} sm={4}>
-									<KeyboardDatePicker
-										format="DD/MM/YYYY"
-										value={endTime}
-										onChange={handleEndTimeChange}
-										label="Break date"
-										fullWidth
-										inputVariant="outlined"
-										autoOk
-									/>
-								</Grid>
-								<Grid item xs={12} sm={4}>
-									<KeyboardTimePicker
-										value={endTime}
-										onChange={handleEndTimeChange}
-										label="Break time"
-										fullWidth
-										inputVariant="outlined"
-										autoOk
-										minutesStep={15}
-									/>
-								</Grid>
-								<Grid item xs={12} sm={4}>
-									<GenericSelect
-										value={breakDuration}
-										onValueChange={
-											handleBreakDurationChange
-										}
-										valuesList={Break.getSelectableBreakDurations()}
-										selectLabel="Break duration"
-										color="primary"
-									/>
-								</Grid>
-							</React.Fragment>
-						)}
+				<Grid container spacing={2} className={classes.dialogContent}>
+					<Grid item xs={12}>
+						<GenericSelect
+							value={employeeId}
+							onValueChange={handleEmployeeChange}
+							valuesList={[]}
+							selectLabel="Select employee"
+							fullWidth
+						/>
 					</Grid>
-				</ThemeProvider>
+					<Grid item xs={12} sm={6}>
+						<KeyboardDatePicker
+							format="DD/MM/YYYY"
+							value={startTime}
+							onChange={handleStartTimeChange}
+							label="Start date"
+							fullWidth
+							inputVariant="outlined"
+							autoOk
+						/>
+					</Grid>
+					<Grid item xs={12} sm={6}>
+						<KeyboardTimePicker
+							value={startTime}
+							onChange={handleStartTimeChange}
+							label="Start time"
+							fullWidth
+							inputVariant="outlined"
+							autoOk
+							minutesStep={15}
+						/>
+					</Grid>
+					<Grid item xs={12} sm={6}>
+						<KeyboardDatePicker
+							format="DD/MM/YYYY"
+							value={endTime}
+							onChange={handleEndTimeChange}
+							label="End date"
+							fullWidth
+							inputVariant="outlined"
+							autoOk
+						/>
+					</Grid>
+					<Grid item xs={12} sm={6}>
+						<KeyboardTimePicker
+							value={endTime}
+							onChange={handleEndTimeChange}
+							label="End time"
+							fullWidth
+							inputVariant="outlined"
+							autoOk
+							minutesStep={15}
+						/>
+					</Grid>
+					{shiftDuration > 300 && (
+						<React.Fragment>
+							<Grid item xs={12} sm={4}>
+								<KeyboardDatePicker
+									format="DD/MM/YYYY"
+									value={endTime}
+									onChange={handleEndTimeChange}
+									label="Break date"
+									fullWidth
+									inputVariant="outlined"
+									autoOk
+								/>
+							</Grid>
+							<Grid item xs={12} sm={4}>
+								<KeyboardTimePicker
+									value={endTime}
+									onChange={handleEndTimeChange}
+									label="Break time"
+									fullWidth
+									inputVariant="outlined"
+									autoOk
+									minutesStep={15}
+								/>
+							</Grid>
+							<Grid item xs={12} sm={4}>
+								<GenericSelect
+									value={breakDuration}
+									onValueChange={handleBreakDurationChange}
+									valuesList={Break.getSelectableBreakDurations()}
+									selectLabel="Break duration"
+									color="primary"
+								/>
+							</Grid>
+						</React.Fragment>
+					)}
+				</Grid>
 			</DialogContent>
 			<DialogActions>
 				<Button onClick={onDialogClose}>Cancel</Button>

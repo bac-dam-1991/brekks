@@ -22,7 +22,7 @@ const AboveFooterSection: React.FC<
 > = ({}) => {
 	return (
 		<Section>
-			<CalendarContainer color="secondary" />
+			<CalendarContainer color="primary" />
 		</Section>
 	);
 };
