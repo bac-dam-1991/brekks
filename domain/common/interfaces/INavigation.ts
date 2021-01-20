@@ -5,4 +5,5 @@ export default interface INavigation extends IDisplayable {
 	inFooter: boolean | "authOnly";
 	inDrawer: boolean | "authOnly";
 	link: string;
+	type: "cta" | "default";
 }

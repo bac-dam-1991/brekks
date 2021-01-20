@@ -23,15 +23,26 @@ import Link from "next/link";
 import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
 
 // Utility
-import { byAttributeOf, generateClassName } from "../../domain/utility/utility";
+import {
+	filterByAttributeOf,
+	generateClassName,
+	sortByAttributeOf,
+} from "../../domain/utility/utility";
 
 // NPM
 import clsx from "clsx";
 
-// COntexts
+// Contexts
 import { useNavigation } from "../../contexts/NavigationManager.Context";
+
+// Interfaces
 import INavigation from "../../domain/common/interfaces/INavigation";
+
+// Config
 import navigations from "../../domain/config/navigations";
+
+// Components
+import RoundedButton from "./RoundedButton.Component";
 
 const drawerWidth: number = 400;
 
@@ -44,6 +55,9 @@ export const styles = (theme: Theme) =>
 			"&.MuiButtonBase-root": {
 				padding: theme.spacing(1, 2),
 			},
+		},
+		buttonContainer: {
+			padding: theme.spacing(1, 2),
 		},
 	});
 
@@ -74,13 +88,27 @@ const SideDrawer = React.forwardRef<
 			<List>
 				{navigations
 					.filter((item: INavigation) =>
-						byAttributeOf<INavigation>(item, "inDrawer", true)
+						filterByAttributeOf(item, "inDrawer", true)
+					)
+					.sort((a: INavigation, b: INavigation) =>
+						sortByAttributeOf(a, b, "displayOrder")
 					)
 					.map((item: INavigation) => (
 						<Link href={item.link} key={item.displayText}>
-							<ListItem button className={classes.listItem}>
-								<ListItemText primary={item.displayText} />
-							</ListItem>
+							{item.type === "cta" ? (
+								<div className={classes.buttonContainer}>
+									<RoundedButton
+										text={item.displayText}
+										fullWidth
+										color="primary"
+										variant="contained"
+									/>
+								</div>
+							) : (
+								<ListItem button className={classes.listItem}>
+									<ListItemText primary={item.displayText} />
+								</ListItem>
+							)}
 						</Link>
 					))}
 			</List>

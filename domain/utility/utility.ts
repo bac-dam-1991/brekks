@@ -50,7 +50,21 @@ export const sortAlphabetically = (a: string, b: string): number => {
 	return 0;
 };
 
-export const byAttributeOf = <T extends {}>(
+export const sortByAttributeOf = <T extends {}>(
+	a: T,
+	b: T,
+	key: keyof T
+): number => {
+	const aVal = a[key];
+	const bVal = b[key];
+
+	if (aVal > bVal) return 1;
+	if (bVal > aVal) return -1;
+
+	return 0;
+};
+
+export const filterByAttributeOf = <T extends {}>(
 	item: T,
 	key: keyof T,
 	value: any,

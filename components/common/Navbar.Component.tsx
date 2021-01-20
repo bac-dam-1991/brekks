@@ -6,6 +6,7 @@ import Link from "next/link";
 import {
 	AppBar,
 	AppBarProps,
+	Button,
 	IconButton,
 	Toolbar,
 	Typography,
@@ -18,7 +19,11 @@ import {
 } from "@material-ui/core/styles";
 
 // Utility
-import { generateClassName } from "../../domain/utility/utility";
+import {
+	filterByAttributeOf,
+	generateClassName,
+	sortByAttributeOf,
+} from "../../domain/utility/utility";
 
 // Icons
 import MenuRoundedIcon from "@material-ui/icons/MenuRounded";
@@ -32,6 +37,8 @@ import SideDrawer from "./SideDrawer.Component";
 
 // Context
 import { useNavigation } from "../../contexts/NavigationManager.Context";
+import navigations from "../../domain/config/navigations";
+import INavigation from "../../domain/common/interfaces/INavigation";
 
 export interface NavbarProps extends AppBarProps {}
 
@@ -46,6 +53,11 @@ export const styles = (theme: Theme) =>
 		},
 		logo: {
 			cursor: "pointer",
+		},
+		navigation: {
+			"&.MuiButton-root": {
+				marginLeft: theme.spacing(1),
+			},
 		},
 	});
 
@@ -70,13 +82,32 @@ const Navbar = React.forwardRef<
 						</Typography>
 					</Link>
 					<div className={classes.linksContainer}>
-						<Link href="/signup">
-							<RoundedButton
-								text="Sign up"
-								variant="contained"
-								color="primary"
-							/>
-						</Link>
+						{navigations
+							.filter((item: INavigation) =>
+								filterByAttributeOf(item, "inNavbar", true)
+							)
+							.sort((a: INavigation, b: INavigation) =>
+								sortByAttributeOf(a, b, "type")
+							)
+							.map((item: INavigation) => (
+								<Link href={item.link}>
+									{item.type === "cta" ? (
+										<RoundedButton
+											text={item.displayText}
+											variant="contained"
+											color="primary"
+											className={classes.navigation}
+										/>
+									) : (
+										<Button
+											color="inherit"
+											className={classes.navigation}
+										>
+											{item.displayText}
+										</Button>
+									)}
+								</Link>
+							))}
 					</div>
 					<IconButton
 						color="inherit"
