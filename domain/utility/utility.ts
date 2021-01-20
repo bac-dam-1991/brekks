@@ -49,3 +49,13 @@ export const sortAlphabetically = (a: string, b: string): number => {
 
 	return 0;
 };
+
+export const byAttributeOf = <T extends {}>(
+	item: T,
+	key: keyof T,
+	value: any,
+	not?: boolean
+): boolean => {
+	if (not) return item[key] !== value;
+	return item[key] === value;
+};

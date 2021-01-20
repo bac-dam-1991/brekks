@@ -23,11 +23,15 @@ import Link from "next/link";
 import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
 
 // Utility
-import { generateClassName } from "../../domain/utility/utility";
+import { byAttributeOf, generateClassName } from "../../domain/utility/utility";
 
 // NPM
 import clsx from "clsx";
+
+// COntexts
 import { useNavigation } from "../../contexts/NavigationManager.Context";
+import INavigation from "../../domain/common/interfaces/INavigation";
+import navigations from "../../domain/config/navigations";
 
 const drawerWidth: number = 400;
 
@@ -68,11 +72,17 @@ const SideDrawer = React.forwardRef<
 			</div>
 			<Divider />
 			<List>
-				<Link href="/about">
-					<ListItem button className={classes.listItem}>
-						<ListItemText primary="About" />
-					</ListItem>
-				</Link>
+				{navigations
+					.filter((item: INavigation) =>
+						byAttributeOf<INavigation>(item, "inDrawer", true)
+					)
+					.map((item: INavigation) => (
+						<Link href={item.link} key={item.displayText}>
+							<ListItem button className={classes.listItem}>
+								<ListItemText primary={item.displayText} />
+							</ListItem>
+						</Link>
+					))}
 			</List>
 		</Drawer>
 	);
