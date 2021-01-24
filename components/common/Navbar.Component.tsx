@@ -90,7 +90,7 @@ const Navbar = React.forwardRef<
 								sortByAttributeOf(a, b, "type")
 							)
 							.map((item: INavigation) => (
-								<Link href={item.link}>
+								<Link href={item.link} key={item.displayText}>
 									{item.type === "cta" ? (
 										<RoundedButton
 											text={item.displayText}

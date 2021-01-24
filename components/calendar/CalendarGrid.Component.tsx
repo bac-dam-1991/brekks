@@ -5,7 +5,10 @@ import clsx from "clsx";
 import { useTrail, config } from "react-spring";
 
 // Utility
-import { generateClassName } from "../../domain/utility/utility";
+import {
+	filterByAttributeOf,
+	generateClassName,
+} from "../../domain/utility/utility";
 
 // MUI
 import {
@@ -29,6 +32,7 @@ import Calendar from "../../domain/common/classes/Calendar";
 import CalendarPanelHeading from "./CalendarPanelHeading.Component";
 import { AnimatedCalendarDayPanel } from "./CalendarDayPanel.Component";
 import AddShiftDialog from "../common/AddShiftDialog.Component";
+import IStaticContent from "../../domain/common/interfaces/IStaticContent";
 
 export const styles = (theme: Theme) =>
 	createStyles({
@@ -42,12 +46,13 @@ export const styles = (theme: Theme) =>
 export interface CalendarGridProps
 	extends React.HTMLAttributes<HTMLDivElement> {
 	startAnim?: boolean;
+	staticContents?: IStaticContent[];
 }
 
 const CalendarGrid = React.forwardRef<
 	HTMLDivElement,
 	CalendarGridProps & WithStyles<typeof styles>
->(({ classes, className, startAnim, ...divProps }, ref) => {
+>(({ classes, className, startAnim, staticContents, ...divProps }, ref) => {
 	// States
 	const [calendarHeadings, setCalendarHeadings] = React.useState<
 		ICalendarHead[]
@@ -104,6 +109,12 @@ const CalendarGrid = React.forwardRef<
 					data={calendarDays[index]}
 					key={calendarDays[index].fullDate}
 					style={{ height, opacity }}
+					staticContent={
+						staticContents &&
+						staticContents.filter((item: IStaticContent) =>
+							filterByAttributeOf(item, "panelIndex", index)
+						)[0]
+					}
 				/>
 			))}
 			<AddShiftDialog

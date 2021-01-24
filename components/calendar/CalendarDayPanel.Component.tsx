@@ -11,6 +11,10 @@ import { PaperProps, Typography, Paper } from "@material-ui/core";
 
 // Interfaces
 import ICalendarDay from "../../domain/common/interfaces/ICalendarDay";
+import IStaticContent from "../../domain/common/interfaces/IStaticContent";
+
+// Next
+import Link from "next/link";
 
 // NPM
 import clsx from "clsx";
@@ -25,6 +29,7 @@ import Calendar from "../../domain/common/classes/Calendar";
 
 // Contexts
 import { useCalendarManager } from "../../contexts/CalendarManager.Context";
+import StyledStaticContentContainer from "./StaticContentContainer.Component";
 
 export const styles = (theme: Theme) =>
 	createStyles({
@@ -46,6 +51,7 @@ export const styles = (theme: Theme) =>
 			color: theme.palette.secondary.main,
 		},
 		container: {
+			position: "relative",
 			height: "100%",
 			transition: "0.3s",
 			cursor: "pointer",
@@ -59,16 +65,21 @@ export const styles = (theme: Theme) =>
 		dateContainer: {
 			marginRight: theme.spacing(0.5),
 		},
+		secondary: {
+			color: "white",
+			backgroundColor: theme.palette.primary.main,
+		},
 	});
 
 export interface CalendarDayPanelProps extends PaperProps {
 	data: ICalendarDay;
+	staticContent?: IStaticContent;
 }
 
 const CalendarDayPanel = React.forwardRef<
 	HTMLDivElement,
 	CalendarDayPanelProps & WithStyles<typeof styles>
->(({ classes, className, data, ...paperProps }, ref) => {
+>(({ classes, className, data, staticContent, ...paperProps }, ref) => {
 	const { color } = useCalendarManager();
 
 	return (
@@ -87,8 +98,15 @@ const CalendarDayPanel = React.forwardRef<
 					!data.ofCurrentMonth && classes.ofDifferentMonth
 				)}
 			>
-				<div className={classes.dateContainer}>
-					<Typography align="right" variant="body2">
+				<div
+					className={clsx(
+						classes.dateContainer,
+						staticContent &&
+							staticContent.theme === "secondary" &&
+							classes.secondary
+					)}
+				>
+					<Typography align="right" variant="body2" color="inherit">
 						{Calendar.isToday(data.fullDate) ? (
 							<strong>Today</strong>
 						) : (
@@ -96,6 +114,13 @@ const CalendarDayPanel = React.forwardRef<
 						)}
 					</Typography>
 				</div>
+				{staticContent && (
+					<Link href={staticContent.link}>
+						<StyledStaticContentContainer
+							staticContent={staticContent}
+						/>
+					</Link>
+				)}
 			</div>
 		</Paper>
 	);
