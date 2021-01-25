@@ -23,7 +23,8 @@ import { generateClassName } from "../../domain/utility/utility";
 
 // NPM
 import clsx from "clsx";
-import { GoogleReCaptcha } from "react-google-recaptcha-v3";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+import axios from "axios";
 
 // Components
 import StyledPasswordInput from "../common/PasswordInput.Component";
@@ -53,10 +54,30 @@ const SignUpPanel = React.forwardRef<
 	// Router
 	const router = useRouter();
 
+	// Contexts
+	const { executeRecaptcha } = useGoogleReCaptcha();
+
+	// States
+	const [token, setToken] = React.useState<string>("");
+
 	// Handlers
-	const handleSignUp = () => {
+	const handleSignUp = React.useCallback(async () => {
+		if (!executeRecaptcha) {
+			return;
+		}
+
+		const result = await executeRecaptcha("signup_page");
+		setToken(result);
+
+		console.log(result);
+
+		const response = await axios.post("/api/verifyRecaptcha", {
+			token: result,
+		});
+		console.log(response.data);
+
 		// router.push("/profile");
-	};
+	}, []);
 
 	return (
 		<Paper
@@ -79,9 +100,6 @@ const SignUpPanel = React.forwardRef<
 				</Grid>
 				<Grid item xs={12}>
 					<StyledPasswordInput label="Repeat password" />
-				</Grid>
-				<Grid item xs={12}>
-					<GoogleReCaptcha onVerify={() => console.log("verified")} />
 				</Grid>
 				<Grid item xs={12}>
 					<StyledLoadingButton
