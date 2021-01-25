@@ -68,12 +68,11 @@ const LoginPanel = React.forwardRef<
 					<TextField
 						label="Email address"
 						variant="outlined"
-						color="secondary"
 						fullWidth
 					/>
 				</Grid>
 				<Grid item xs={12}>
-					<StyledPasswordInput label="Password" color="secondary" />
+					<StyledPasswordInput label="Password" />
 				</Grid>
 				<Grid item xs={12}>
 					<StyledLoadingButton
@@ -84,7 +83,7 @@ const LoginPanel = React.forwardRef<
 				</Grid>
 				<Grid item xs={12}>
 					<Typography variant="caption" align="right" display="block">
-						Need an account?
+						Need an account?&nbsp;
 						<Link href="signup">Sign up here</Link>
 					</Typography>
 				</Grid>

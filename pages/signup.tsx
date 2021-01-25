@@ -1,5 +1,8 @@
 import * as React from "react";
 
+// NPM
+import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
+
 // Components
 import Section from "../components/common/Section.Component";
 import SectionHeader from "../components/common/SectionHeader.Component";
@@ -16,7 +19,12 @@ const SignupPage: React.FC<SignupPageProps> = () => {
 					color="secondary"
 					align="center"
 				/>
-				<StyledSignUpPanel />
+				<GoogleReCaptchaProvider
+					reCaptchaKey="6LeEYzsaAAAAAHuFGXw8nHxnQkt0pYC-ENzbVMDb"
+					language="en"
+				>
+					<StyledSignUpPanel />
+				</GoogleReCaptchaProvider>
 			</Section>
 		</div>
 	);

@@ -23,6 +23,7 @@ import { generateClassName } from "../../domain/utility/utility";
 
 // NPM
 import clsx from "clsx";
+import { GoogleReCaptcha } from "react-google-recaptcha-v3";
 
 // Components
 import StyledPasswordInput from "../common/PasswordInput.Component";
@@ -54,7 +55,7 @@ const SignUpPanel = React.forwardRef<
 
 	// Handlers
 	const handleSignUp = () => {
-		router.push("/profile");
+		// router.push("/profile");
 	};
 
 	return (
@@ -70,18 +71,17 @@ const SignUpPanel = React.forwardRef<
 					<TextField
 						label="Email address"
 						variant="outlined"
-						color="secondary"
 						fullWidth
 					/>
 				</Grid>
 				<Grid item xs={12}>
-					<StyledPasswordInput label="Password" color="secondary" />
+					<StyledPasswordInput label="Password" />
 				</Grid>
 				<Grid item xs={12}>
-					<StyledPasswordInput
-						label="Repeat password"
-						color="secondary"
-					/>
+					<StyledPasswordInput label="Repeat password" />
+				</Grid>
+				<Grid item xs={12}>
+					<GoogleReCaptcha onVerify={() => console.log("verified")} />
 				</Grid>
 				<Grid item xs={12}>
 					<StyledLoadingButton
