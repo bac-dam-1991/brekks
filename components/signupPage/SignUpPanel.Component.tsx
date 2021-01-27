@@ -32,6 +32,9 @@ import StyledLoadingButton from "../common/LoadingButton.Component";
 
 // Next
 import { useRouter } from "next/router";
+import IRecaptchaResponse from "../../domain/common/interfaces/IRecaptchaResponse";
+import ReCaptcha from "../../domain/common/classes/ReCaptcha";
+import UnableToValidateWithReCaptchaError from "../../domain/common/errors/UnableToValidateWithReCaptchaError";
 
 export const styles = (theme: Theme) =>
 	createStyles({
@@ -57,26 +60,23 @@ const SignUpPanel = React.forwardRef<
 	// Contexts
 	const { executeRecaptcha } = useGoogleReCaptcha();
 
-	// States
-	const [token, setToken] = React.useState<string>("");
-
 	// Handlers
 	const handleSignUp = React.useCallback(async () => {
-		if (!executeRecaptcha) {
-			return;
+		try {
+			if (!executeRecaptcha) {
+				return;
+			}
+
+			const token = await executeRecaptcha("signup_page");
+
+			const response = await ReCaptcha.verify(token);
+
+			if (!response.data.success)
+				throw new UnableToValidateWithReCaptchaError();
+			router.push("/profile");
+		} catch (error) {
+			console.log("Error", error);
 		}
-
-		const result = await executeRecaptcha("signup_page");
-		setToken(result);
-
-		console.log(result);
-
-		const response = await axios.post("/api/verifyRecaptcha", {
-			token: result,
-		});
-		console.log(response.data);
-
-		// router.push("/profile");
 	}, []);
 
 	return (

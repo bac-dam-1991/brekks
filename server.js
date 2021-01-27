@@ -25,6 +25,8 @@ async function init(request, response, dev) {
 		params.append("secret", "");
 		params.append("response", token);
 
+		console.log(params);
+
 		const response = await axios({
 			method: "POST",
 			url: "https://www.google.com/recaptcha/api/siteverify",
