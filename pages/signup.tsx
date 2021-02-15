@@ -20,7 +20,11 @@ const SignupPage: React.FC<SignupPageProps> = () => {
 					align="center"
 				/>
 				<GoogleReCaptchaProvider
-					reCaptchaKey="6Lcp8jsaAAAAALcRvVfN5qyWG2QykvCTK6Um2dGf"
+					reCaptchaKey={
+						process.env.NODE_ENV === "production"
+							? "6LeEYzsaAAAAAHuFGXw8nHxnQkt0pYC-ENzbVMDb"
+							: "6Lcp8jsaAAAAALcRvVfN5qyWG2QykvCTK6Um2dGf"
+					}
 					language="en"
 				>
 					<StyledSignUpPanel />
