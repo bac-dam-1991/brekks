@@ -7,24 +7,43 @@ import {
 	createStyles,
 	Theme,
 } from "@material-ui/core/styles";
-import { Typography } from "@material-ui/core";
+import { PaperProps, Typography, Paper } from "@material-ui/core";
 
 // Interfaces
 import ICalendarDay from "../../domain/common/interfaces/ICalendarDay";
+import IStaticContent from "../../domain/common/interfaces/IStaticContent";
+
+// Next
+import Link from "next/link";
 
 // NPM
 import clsx from "clsx";
 import moment from "moment";
+import { animated } from "react-spring";
 
 // Utility
 import { generateClassName } from "../../domain/utility/utility";
 
 // Classes
-import Calendar from "../../domain/common/classes/calendar";
+import Calendar from "../../domain/common/classes/Calendar";
+
+// Contexts
 import { useCalendarManager } from "../../contexts/CalendarManager.Context";
+import StyledStaticContentContainer from "./StaticContentContainer.Component";
 
 export const styles = (theme: Theme) =>
 	createStyles({
+		root: {
+			cursor: "pointer",
+			transition: "0.4s",
+			"&:hover": {
+				boxShadow: theme.shadows[4],
+			},
+		},
+		head: {},
+		body: {
+			height: 100,
+		},
 		primaryTheme: {
 			color: theme.palette.primary.main,
 		},
@@ -32,6 +51,7 @@ export const styles = (theme: Theme) =>
 			color: theme.palette.secondary.main,
 		},
 		container: {
+			position: "relative",
 			height: "100%",
 			transition: "0.3s",
 			cursor: "pointer",
@@ -45,41 +65,71 @@ export const styles = (theme: Theme) =>
 		dateContainer: {
 			marginRight: theme.spacing(0.5),
 		},
+		secondary: {
+			color: "white",
+			backgroundColor: theme.palette.primary.main,
+		},
 	});
 
-export interface CalendarPanelHeadingProps
-	extends React.HTMLAttributes<HTMLDivElement> {
+export interface CalendarDayPanelProps extends PaperProps {
 	data: ICalendarDay;
+	staticContent?: IStaticContent;
 }
 
-const CalendarPanelHeading: React.FC<
-	CalendarPanelHeadingProps & WithStyles<typeof styles>
-> = ({ classes, data, ...divProps }) => {
+const CalendarDayPanel = React.forwardRef<
+	HTMLDivElement,
+	CalendarDayPanelProps & WithStyles<typeof styles>
+>(({ classes, className, data, staticContent, ...paperProps }, ref) => {
 	const { color } = useCalendarManager();
 
 	return (
-		<div
-			className={clsx(
-				classes.container,
-				color === "primary" && classes.primaryTheme,
-				color === "secondary" && classes.secondaryTheme,
-				!data.ofCurrentMonth && classes.ofDifferentMonth
-			)}
-			{...divProps}
+		<Paper
+			className={clsx(classes.root, className, classes.body)}
+			{...paperProps}
+			square
+			elevation={0}
+			ref={ref}
 		>
-			<div className={classes.dateContainer}>
-				<Typography align="right" variant="body2">
-					{Calendar.isToday(data.fullDate) ? (
-						<strong>Today</strong>
-					) : (
-						moment(data.fullDate).date()
+			<div
+				className={clsx(
+					classes.container,
+					color === "primary" && classes.primaryTheme,
+					color === "secondary" && classes.secondaryTheme,
+					!data.ofCurrentMonth && classes.ofDifferentMonth
+				)}
+			>
+				<div
+					className={clsx(
+						classes.dateContainer,
+						staticContent &&
+							staticContent.theme === "secondary" &&
+							classes.secondary
 					)}
-				</Typography>
+				>
+					<Typography align="right" variant="body2" color="inherit">
+						{Calendar.isToday(data.fullDate) ? (
+							<strong>Today</strong>
+						) : (
+							moment(data.fullDate).date()
+						)}
+					</Typography>
+				</div>
+				{staticContent && (
+					<Link href={staticContent.link}>
+						<StyledStaticContentContainer
+							staticContent={staticContent}
+						/>
+					</Link>
+				)}
 			</div>
-		</div>
+		</Paper>
 	);
-};
+});
 
-export default withStyles(styles, {
-	classNamePrefix: generateClassName("CalendarPanelHeading"),
-})(CalendarPanelHeading);
+const StyledCalendarDayPanel = withStyles(styles, {
+	classNamePrefix: generateClassName("CalendarDayPanel"),
+})(CalendarDayPanel);
+
+export default StyledCalendarDayPanel;
+
+export const AnimatedCalendarDayPanel = animated(StyledCalendarDayPanel);

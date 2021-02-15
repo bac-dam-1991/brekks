@@ -11,6 +11,8 @@ import {
 	createStyles,
 	Theme,
 } from "@material-ui/core/styles";
+
+// Utility
 import { generateClassName } from "../../domain/utility/utility";
 
 export const styles = (theme: Theme) => createStyles({ root: {} });
@@ -22,7 +24,7 @@ const DemoSection: React.FC<
 > = ({}) => {
 	return (
 		<Section>
-			<CalendarContainer color="primary" />
+			<CalendarContainer color="secondary" />
 		</Section>
 	);
 };

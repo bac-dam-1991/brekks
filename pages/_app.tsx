@@ -13,6 +13,8 @@ import {
 	createGenerateClassName,
 	StylesProvider,
 } from "@material-ui/core/styles";
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import MomentUtils from "@date-io/moment";
 
 // Domain
 import theme from "../domain/common/theme";
@@ -38,11 +40,13 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
 				/>
 			</Head>
 			<StylesProvider generateClassName={generateClassName} injectFirst>
-				<ThemeProvider theme={theme}>
-					<Layout>
-						<Component {...pageProps} />
-					</Layout>
-				</ThemeProvider>
+				<MuiPickersUtilsProvider utils={MomentUtils}>
+					<ThemeProvider theme={theme}>
+						<Layout>
+							<Component {...pageProps} />
+						</Layout>
+					</ThemeProvider>
+				</MuiPickersUtilsProvider>
 			</StylesProvider>
 		</React.Fragment>
 	);

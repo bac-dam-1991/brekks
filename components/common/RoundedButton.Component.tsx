@@ -19,7 +19,9 @@ export const styles = (theme: Theme) =>
 	createStyles({
 		root: {},
 		roundedButton: {
-			borderRadius: 18,
+			"&.MuiButton-root": {
+				borderRadius: 18,
+			},
 		},
 	});
 
@@ -27,9 +29,10 @@ export interface RoundedButtonProps extends ButtonProps {
 	text: string;
 }
 
-const RoundedButton: React.FC<
+const RoundedButton = React.forwardRef<
+	HTMLButtonElement,
 	RoundedButtonProps & WithStyles<typeof styles>
-> = ({ text, classes, className, ...buttonProps }) => {
+>(({ text, classes, className, ...buttonProps }, ref) => {
 	return (
 		<Button
 			{...buttonProps}
@@ -39,7 +42,7 @@ const RoundedButton: React.FC<
 			{text}
 		</Button>
 	);
-};
+});
 
 export default withStyles(styles, {
 	classNamePrefix: generateClassName("RoundedButton"),

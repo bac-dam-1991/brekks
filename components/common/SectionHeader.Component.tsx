@@ -26,11 +26,11 @@ export interface SectionHeaderProps extends TypographyProps {
 
 const SectionHeader: React.FC<
 	SectionHeaderProps & WithStyles<typeof styles>
-> = ({ classes, className, text }) => {
+> = ({ classes, className, text, ...typographyProps }) => {
 	return (
 		<Typography
 			variant="h1"
-			color="primary"
+			{...typographyProps}
 			className={clsx(classes.root, className)}
 		>
 			{text}

@@ -6,6 +6,7 @@ import {
 	WithStyles,
 	createStyles,
 	Theme,
+	ThemeProvider,
 } from "@material-ui/core/styles";
 
 // NPM
@@ -24,6 +25,8 @@ import { ThemeColor } from "../../domain/common/types/ThemeColorType";
 
 // Contexts
 import CalendarManager from "../../contexts/CalendarManager.Context";
+import { Waypoint } from "react-waypoint";
+import IStaticContent from "../../domain/common/interfaces/IStaticContent";
 
 export const styles = (theme: Theme) =>
 	createStyles({
@@ -35,18 +38,32 @@ export const styles = (theme: Theme) =>
 export interface CalendarContainerProps
 	extends React.HTMLAttributes<HTMLDivElement> {
 	color: ThemeColor;
+	staticContents?: IStaticContent[];
 }
 
 const CalendarContainer: React.FC<
 	CalendarContainerProps & WithStyles<typeof styles>
-> = ({ classes, className, color, ...divProps }) => {
+> = ({ classes, className, color, staticContents, ...divProps }) => {
+	// States
+	const [startAnim, setStartAnim] = React.useState<boolean>(false);
+
+	// Handlers
+	const handleCalendarGridEnter = () => {
+		setStartAnim(true);
+	};
+
 	return (
 		<CalendarManager color={color}>
 			<div className={clsx(className, classes.root)} {...divProps}>
 				<CalendarHeading />
 				<CalendarToolbar />
-				<CalendarGrid color={color} />
+				<CalendarGrid
+					color={color}
+					startAnim={startAnim}
+					staticContents={staticContents}
+				/>
 			</div>
+			<Waypoint onEnter={handleCalendarGridEnter} />
 		</CalendarManager>
 	);
 };

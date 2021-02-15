@@ -38,7 +38,7 @@ export const styles = (theme: Theme) =>
 				boxShadow: theme.shadows[4],
 			},
 		},
-		paperRoot: { borderRadius: 26 },
+		paperRoot: { "&.MuiPaper-rounded": { borderRadius: 26 } },
 	});
 
 export interface CalendarUtilityToolbarProps extends PaperProps {}
@@ -51,6 +51,7 @@ const CalendarUtilityToolbar: React.FC<
 		toggleExpandAll,
 		toggleFirstDayOfWeek,
 		expandAll,
+		handleAddShiftDialogOpenChange,
 	} = useCalendarManager();
 
 	return (
@@ -63,7 +64,10 @@ const CalendarUtilityToolbar: React.FC<
 			<PromptedIconButton title="Add staff">
 				<PersonAddRoundedIcon />
 			</PromptedIconButton>
-			<PromptedIconButton title="Add shift">
+			<PromptedIconButton
+				title="Add shift"
+				onClick={() => handleAddShiftDialogOpenChange(true)}
+			>
 				<AddAlarmRoundedIcon />
 			</PromptedIconButton>
 			<PromptedButton

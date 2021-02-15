@@ -16,7 +16,8 @@ import clsx from "clsx";
 export const styles = (theme: Theme) =>
 	createStyles({
 		root: {
-			margin: theme.spacing(10, 0),
+			display: "block",
+			padding: theme.spacing(10, 0),
 		},
 		container: {},
 	});
